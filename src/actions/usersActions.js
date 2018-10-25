@@ -70,7 +70,6 @@ export const logoutUser = email => {
 }
 
 export const signUpUser = (email, password) => {
-  debugger
   let urlSuffix = `users`
   let postConfig = {
     method: "POST",

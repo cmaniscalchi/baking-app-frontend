@@ -25,8 +25,8 @@ const WithAuth = WrappedComponent => {
 
   const mapStateToProps = state => {
     return {
-      loggedIn: state.user.loggedIn,
-      authenticatingUser: state.user.authenticatingUser
+      loggedIn: state.users.loggedIn,
+      authenticatingUser: state.users.authenticatingUser
     }
   }
 

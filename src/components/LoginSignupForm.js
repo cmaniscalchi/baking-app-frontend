@@ -17,19 +17,19 @@ class LoginSignupForm extends Component {
   }
 
   handleSignUpSubmit = event => {
-    debugger;
     event.preventDefault()
     this.props.signUpUser(this.state.email, this.state.password)
     this.setState({ email: '', password: '' })
   }
 
   render() {
+    console.log("LoginSignupForm props:", this.props)
     let { failedLogin, error, loggedIn } = this.props
     let { email, password } = this.state
 
     const emailInput = (
       <input
-        label="Email"
+        type="text"
         placeholder="Email"
         name="email"
         onChange={this.handleInputChange}
@@ -40,7 +40,6 @@ class LoginSignupForm extends Component {
     const passwordInput = (
       <input
         type="password"
-        label="Password"
         placeholder="Password"
         name="password"
         onChange={this.handleInputChange}
@@ -48,45 +47,43 @@ class LoginSignupForm extends Component {
       />
     )
 
-    // const logInForm = (
-    //   <div>
-    //     <h2>Log In to Your Account</h2>
-    //     <br />
-    //     <form onSubmit={this.handleLoginSubmit}>
-    //       {failedLogin ? error : null}
-    //       <div>
-    //         {emailInput}
-    //         {passwordInput}
-    //       </div>
-    //       <button type="submit">Log In</button>
-    //     </form>
-    //   </div>
-    // )
-
-    const signUpForm = (
+    const logInForm = (
       <div>
-        <h2>Sign Up for an Account</h2>
+        <h2>Log In to Your Account</h2>
         <br />
         <form onSubmit={this.handleLoginSubmit}>
-          <p>
-            {failedLogin ? error : null}
-          </p>
+          {failedLogin ? error : null}
           <div>
             {emailInput}
             {passwordInput}
           </div>
-          <button type="submit">Sign Up</button>
+          <button type="submit">Log In</button>
+        </form>
+      </div>
+    )
+
+    const signUpForm = (
+      <div>
+        <form onSubmit={this.handleSignUpSubmit}>
+          <h2>Sign Up for an Account</h2>
+          <br />
+          {failedLogin ? console.log(error) : null}
+
+          {emailInput}
+          {passwordInput}
+
+          <input type="submit" value="Submit" />
         </form>
       </div>
     )
 
     if (loggedIn) {
-        return <Redirect to="/profile" />
-      } else {
+      return <Redirect to="/profile" />
+    } else {
       return (
         <Fragment>
           <div>
-            {/* {logInForm} */}
+            {logInForm}
             {signUpForm}
           </div>
         </Fragment>

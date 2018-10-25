@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react'
-import withAuth from '../hocs/WithAuth'
+import WithAuth from '../hocs/WithAuth'
 
 const RecipeContainer = () => {
 
@@ -10,4 +10,4 @@ const RecipeContainer = () => {
   )
 }
 
-export default withAuth(RecipeContainer)
+export default WithAuth(RecipeContainer)
