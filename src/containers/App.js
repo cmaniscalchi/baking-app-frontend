@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react'
 import { Route, Switch, withRouter } from 'react-router-dom'
-// import NavBar from '../components/NavBar'
+import NavBar from '../components/NavBar'
 import LoginSignupForm from '../components/LoginSignupForm'
 import RecipeContainer from './RecipeContainer'
 
@@ -8,7 +8,7 @@ const App = () => {
 
   return (
     <Fragment>
-      {/* <NavBar /> */}
+      <NavBar />
       <div>
         <Switch>
           <Route exact path="/login" component={LoginSignupForm} />

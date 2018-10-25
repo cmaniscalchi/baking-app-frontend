@@ -78,7 +78,7 @@ class LoginSignupForm extends Component {
     )
 
     if (loggedIn) {
-      return <Redirect to="/profile" />
+      return <Redirect to="/" />
     } else {
       return (
         <Fragment>
