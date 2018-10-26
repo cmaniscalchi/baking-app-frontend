@@ -22,7 +22,6 @@ class LogInForm extends Component {
   }
 
   render() {
-    // console.log("LogInForm props:", this.state, this.props)
     let { logInEmail, logInPassword } = this.state
 
     const emailInput = (

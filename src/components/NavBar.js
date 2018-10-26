@@ -16,14 +16,17 @@ const NavBar = ({ loggedIn, logoutUser, user, location: { pathname } }) => {
         <Navbar.Toggle />
       </Navbar.Header>
       <Navbar.Collapse>
-        <Nav>
-          <LinkContainer to="/">
-            <NavItem eventKey={1}>Convert Recipes</NavItem>
-          </LinkContainer>
-          <LinkContainer to="/recipes">
-            <NavItem eventKey={2}>My Saved Recipes</NavItem>
-          </LinkContainer>
-        </Nav>
+        {loggedIn ? (
+          <Nav>
+            <LinkContainer to="/">
+              <NavItem eventKey={1}>Convert Recipes</NavItem>
+            </LinkContainer>
+            <LinkContainer to="/recipes">
+              <NavItem eventKey={2}>My Saved Recipes</NavItem>
+            </LinkContainer>
+          </Nav>
+        ) : null
+        }
         <Nav pullRight>
           {loggedIn ? (
             <LinkContainer to="/login">

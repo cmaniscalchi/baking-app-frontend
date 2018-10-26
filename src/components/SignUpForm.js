@@ -5,24 +5,23 @@ import { Form, FormGroup, Col, ControlLabel, FormControl, Button, Well } from 'r
 import { signUpUser } from '../actions'
 
 class SignupForm extends Component {
-  state = { signUpEmail: '', signUpUserName: '', password: '' }
+  state = { signUpEmail: '', signUpUserName: '', signUpPassword: '' }
 
   handleInputChange = event => {
     this.setState({ [event.target.id]: event.target.value })
   }
 
   validateForm() {
-    return this.state.signUpEmail.length > 0 && this.state.signUpUserName.length && this.state.password.length > 0
+    return this.state.signUpEmail.length > 0 && this.state.signUpUserName.length && this.state.signUpPassword.length > 0
   }
 
   handleSignUpSubmit = event => {
     event.preventDefault()
-    this.props.signUpUser(this.state.signUpEmail, this.state.password)
+    this.props.signUpUser(this.state.signUpEmail, this.state.signUpPassword)
     this.setState({ signUpEmail: '', signUpUserName: '', password: '' })
   }
 
   render() {
-    // console.log("SignupForm props:", this.state, this.props)
     let { signUpEmail, signUpUserName, signUpPassword } = this.state
 
     const emailInput = (

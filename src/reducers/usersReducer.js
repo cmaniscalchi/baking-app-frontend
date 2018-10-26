@@ -1,6 +1,6 @@
 import { AUTHENTICATING_USER, FAILED_LOGIN, REMOVE_CURRENT_USER, SET_CURRENT_USER } from '../types'
 
-const initialUserState = {
+const initialUsersState = {
   user: null,
   loggedIn: false,
   authenticatingUser: false,
@@ -8,7 +8,7 @@ const initialUserState = {
   error: null
 }
 
-export default function usersReducer(state = initialUserState, action) {
+export default function usersReducer(state = initialUsersState, action) {
   console.log("usersReducer:", state, action)
   switch (action.type) {
     case SET_CURRENT_USER:
@@ -18,7 +18,7 @@ export default function usersReducer(state = initialUserState, action) {
     case FAILED_LOGIN:
       return { ...state, failedLogin: true, error: action.payload, authenticatingUser: false }
     case REMOVE_CURRENT_USER:
-      return initialUserState
+      return initialUsersState
     default:
       return state
   }
