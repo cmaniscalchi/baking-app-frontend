@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react'
 import { Route, Switch, withRouter } from 'react-router-dom'
 import NavBar from '../components/NavBar'
-import LoginSignupForm from '../components/LoginSignupForm'
+import LogInSignUpForm from '../components/LogInSignUpForm'
 import RecipeContainer from './RecipeContainer'
 
 const App = () => {
@@ -11,8 +11,8 @@ const App = () => {
       <NavBar />
       <div>
         <Switch>
-          <Route exact path="/login" component={LoginSignupForm} />
-          <Route exact path="/profile" component={RecipeContainer} />
+          <Route exact path="/login" component={LogInSignUpForm} />
+          <Route exact path="/" component={RecipeContainer} />
         </Switch>
       </div>
     </Fragment>
