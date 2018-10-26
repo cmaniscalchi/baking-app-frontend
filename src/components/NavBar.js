@@ -7,7 +7,7 @@ import { logoutUser } from '../actions'
 
 const NavBar = ({ loggedIn, logoutUser, user, location: { pathname } }) => {
 
-  const handleUserLogout = () => {
+  const handleLogoutUser = () => {
     if (loggedIn) {
       return logoutUser(user.email)
     } else {
@@ -24,7 +24,7 @@ const NavBar = ({ loggedIn, logoutUser, user, location: { pathname } }) => {
         <Navbar.Toggle />
       </Navbar.Header>
       <Navbar.Collapse>
-        {loggedIn ? (
+        { loggedIn ? (
           <Nav>
             <LinkContainer to="/">
               <NavItem eventKey={1}>Convert Recipes</NavItem>
@@ -33,22 +33,22 @@ const NavBar = ({ loggedIn, logoutUser, user, location: { pathname } }) => {
               <NavItem eventKey={2}>My Saved Recipes</NavItem>
             </LinkContainer>
           </Nav>
-        ) : null
-        }
+        ) : ( null
+        )}
         <Nav pullRight>
-          {loggedIn ? (
-            <LinkContainer exact to="/login">
-              <NavItem onClick={handleUserLogout} eventKey={1}>Log Out</NavItem>
+          { loggedIn ? (
+            <LinkContainer exact to="/logout">
+              <NavItem onClick={ handleLogoutUser } eventKey={1}>Log Out</NavItem>
             </LinkContainer>
           ) : (
             <LinkContainer exact to="/login">
               <NavItem eventKey={1}>Log In or Sign Up</NavItem>
-            </LinkContainer>)
-          }
+            </LinkContainer>
+          )}
         </Nav>
       </Navbar.Collapse>
     </Navbar>
-)
+  )
 }
 
 const mapStateToProps = ({ users: { loggedIn, user } }) => ({ loggedIn, user })

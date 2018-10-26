@@ -2,7 +2,7 @@ import React, { Fragment } from 'react'
 import { Route, Switch, withRouter } from 'react-router-dom'
 import NavBar from '../components/NavBar'
 import LogInSignUpForm from '../components/LogInSignUpForm'
-import RecipeContainer from './RecipeContainer'
+import RecipeConverter from './RecipeConverter'
 
 const App = () => {
 
@@ -12,7 +12,7 @@ const App = () => {
       <div>
         <Switch>
           <Route exact path="/login" component={LogInSignUpForm} />
-          <Route exact path="/" component={RecipeContainer} />
+          <Route exact path="/" component={RecipeConverter} />
         </Switch>
       </div>
     </Fragment>
