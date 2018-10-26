@@ -40,7 +40,6 @@ export const loginUser = (email, password) => {
       else { throw res }
     })
     .then(userData => {
-      console.log('%c INSIDE YE OLDE .THEN', 'color: navy')
       localStorage.setItem('jwt', userData.jwt)
       dispatch({ type: SET_CURRENT_USER, payload: userData.user})
     })
@@ -52,6 +51,7 @@ export const loginUser = (email, password) => {
 }
 
 export const logoutUser = email => {
+  debugger;
   let urlSuffix = `logout`
   let postConfig = {
     method: "POST",
