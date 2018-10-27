@@ -8,8 +8,8 @@ const initialUsersState = {
   error: null
 }
 
-export default function usersReducer(state = initialUsersState, action) {
-  console.log("usersReducer:", state, action)
+export default function userReducer(state = initialUsersState, action) {
+  console.log("userReducer:", state, action)
   switch (action.type) {
     case SET_CURRENT_USER:
       return { ...state, user: action.payload, loggedIn: true, authenticatingUser: false }

@@ -5,8 +5,8 @@ const initialRecipesState = {
   recipeMultiplier: null
 }
 
-export default function usersReducer(state = initialRecipesState, action) {
-  console.log("recipesReducer:", state, action)
+export default function recipeReducer(state = initialRecipesState, action) {
+  console.log("recipeReducer:", state, action)
   switch (action.type) {
     default:
       return state

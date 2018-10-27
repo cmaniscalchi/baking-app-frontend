@@ -1,8 +1,10 @@
 import { combineReducers } from 'redux'
-import recipesReducer from './recipesReducer'
-import usersReducer from './usersReducer'
+import ingredientReducer from './ingredientReducer'
+import recipeReducer from './recipeReducer'
+import userReducer from './userReducer'
 
 export default combineReducers({
-  recipes: recipesReducer,
-  users: usersReducer
+  ingredients: ingredientReducer,
+  recipes: recipeReducer,
+  users: userReducer
 })
