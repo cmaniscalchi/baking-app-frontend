@@ -51,7 +51,6 @@ export const loginUser = (email, password) => {
 }
 
 export const logoutUser = email => {
-  debugger;
   let urlSuffix = `logout`
   let postConfig = {
     method: "POST",

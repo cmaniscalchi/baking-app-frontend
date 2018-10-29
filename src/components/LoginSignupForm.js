@@ -1,9 +1,10 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { withRouter, Redirect } from 'react-router-dom'
-import LogInForm from './LogInForm'
-import SignUpForm from './SignUpForm'
-import { Tabs, Tab } from 'react-bootstrap';
+import Tabs from '@material-ui/core/Tabs'
+import Tab from '@material-ui/core/Tab'
+// import LogInForm from './LogInForm'
+// import SignUpForm from './SignUpForm'
 
 const LogInSignUpForm = ({ loggedIn }) => {
 
@@ -12,11 +13,11 @@ const LogInSignUpForm = ({ loggedIn }) => {
   } else {
     return (
       <Tabs id='logInSignUpForm' defaultActiveKey={1} style={{width:'90%', margin: 'auto'}}>
-        <Tab eventKey={1} title="Log In">
-          <LogInForm />
+        <Tab fullWidth label="Log In">
+          {/* <LogInForm /> */}
         </Tab>
-        <Tab eventKey={2} title="Sign Up">
-          <SignUpForm />
+        <Tab fullWidth label="Sign Up">
+          {/* <SignUpForm /> */}
         </Tab>
       </Tabs>
     )

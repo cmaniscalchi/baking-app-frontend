@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
-import { Form, FormGroup, Col, ControlLabel, FormControl, Button, Well } from 'react-bootstrap';
+import Form from '@material-ui/core/Form'
+
+
 import { loginUser } from '../actions'
 
 class LogInForm extends Component {
@@ -25,19 +27,19 @@ class LogInForm extends Component {
     let { logInEmail, logInPassword } = this.state
 
     const emailInput = (
-      <FormGroup controlId="logInEmail">
-        <Col componentClass={ControlLabel} sm={2}>
-          Email
-        </Col>
-        <Col sm={10}>
-          <FormControl
-            type="email"
-            value={logInEmail}
-            placeholder="Email"
-            onChange={this.handleInputChange}
-          />
-        </Col>
-      </FormGroup>
+      // <FormGroup controlId="logInEmail">
+      //   <Col componentClass={ControlLabel} sm={2}>
+      //     Email
+      //   </Col>
+      //   <Col sm={10}>
+      //     <FormControl
+      //       type="email"
+      //       value={logInEmail}
+      //       placeholder="Email"
+      //       onChange={this.handleInputChange}
+      //     />
+      //   </Col>
+      // </FormGroup>
     )
 
     const passwordInput = (

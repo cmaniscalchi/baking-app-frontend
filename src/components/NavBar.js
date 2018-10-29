@@ -1,9 +1,9 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { withRouter } from 'react-router-dom'
-import { LinkContainer } from 'react-router-bootstrap'
-import { Navbar, Nav, NavItem } from 'react-bootstrap'
+import { withRouter, Link } from 'react-router-dom'
 import { logoutUser } from '../actions'
+import { AppBar, Toolbar, Typography, Button, IconButton } from '@material-ui/core'
+import MenuIcon from '@material-ui/icons/Menu'
 
 const NavBar = ({ loggedIn, logoutUser, user, location: { pathname } }) => {
 
@@ -16,38 +16,28 @@ const NavBar = ({ loggedIn, logoutUser, user, location: { pathname } }) => {
   }
 
   return (
-    <Navbar collapseOnSelect>
-      <Navbar.Header>
-        <Navbar.Brand>
-          My Baking Conversion App
-        </Navbar.Brand>
-        <Navbar.Toggle />
-      </Navbar.Header>
-      <Navbar.Collapse>
-        { loggedIn ? (
-          <Nav>
-            <LinkContainer to="/">
-              <NavItem eventKey={1}>Convert Recipes</NavItem>
-            </LinkContainer>
-            <LinkContainer to="/recipes">
-              <NavItem eventKey={2}>My Saved Recipes</NavItem>
-            </LinkContainer>
-          </Nav>
-        ) : ( null
-        )}
-        <Nav pullRight>
+    <div style={{ flexGrow: 1 }}>
+      <AppBar position="static">
+        <Toolbar>
+          <IconButton style={{ marginLeft: -12, marginRight: 20 }} color="inherit" aria-label="Menu">
+            <MenuIcon />
+          </IconButton>
+          <Typography variant="h6" color="inherit" style={{ flexGrow: 1, textDecoration:'none' }} component={Link} to="/">My Baking App</Typography>
           { loggedIn ? (
-            <LinkContainer exact to="/logout">
-              <NavItem onClick={ handleLogoutUser } eventKey={1}>Log Out</NavItem>
-            </LinkContainer>
-          ) : (
-            <LinkContainer exact to="/login">
-              <NavItem eventKey={1}>Log In or Sign Up</NavItem>
-            </LinkContainer>
+            <div>
+              <Button component={Link} to="/">Home</Button>
+              <Button component={Link} to="/">Saved Recipes</Button>
+            </div>
+          ) : ( null
           )}
-        </Nav>
-      </Navbar.Collapse>
-    </Navbar>
+          { loggedIn ? (
+            <Button onClick={ handleLogoutUser } color="inherit">Log Out</Button>
+          ) : (
+            <Button onClick={ handleLogoutUser } color="inherit" component={Link} to="/login">Log In or Sign Up</Button>
+          )}
+        </Toolbar>
+      </AppBar>
+    </div>
   )
 }
 
