@@ -5,7 +5,7 @@ const initialIngredientsState = {
 }
 
 export default function ingredientReducer(state = initialIngredientsState, action) {
-  console.log("ingredientReducer:", state, action)
+  // console.log("ingredientReducer:", state, action)
   switch (action.type) {
     case SET_INGREDIENT_CHOICES:
       return { ...state, ingredientChoices: action.payload }
