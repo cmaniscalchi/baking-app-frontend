@@ -1,7 +1,8 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
-import { Form, FormGroup, Col, ControlLabel, FormControl, Button, Well } from 'react-bootstrap';
+import { CssBaseline, Avatar, FormControl, Input, InputLabel, Button, Paper, Typography } from '@material-ui/core'
+import LockIcon from '@material-ui/icons/LockOutlined'
 import { signUpUser } from '../actions'
 
 class SignupForm extends Component {
@@ -25,66 +26,40 @@ class SignupForm extends Component {
     let { signUpEmail, signUpUserName, signUpPassword } = this.state
 
     const emailInput = (
-      <FormGroup controlId="signUpEmail">
-        <Col componentClass={ControlLabel} sm={2}>
-          Email
-        </Col>
-        <Col sm={10}>
-          <FormControl
-            type="email"
-            value={signUpEmail}
-            placeholder="Email"
-            onChange={this.handleInputChange}
-          />
-        </Col>
-      </FormGroup>
+      <FormControl onChange={this.handleInputChange} margin="normal" required fullWidth>
+        <InputLabel htmlFor="signUpEmail">Email Address</InputLabel>
+        <Input id="signUpEmail" name="email" value={signUpEmail} autoFocus />
+      </FormControl>
     )
 
     const userNameInput = (
-      <FormGroup controlId="signUpUserName">
-        <Col componentClass={ControlLabel} sm={2}>
-          User Name
-        </Col>
-        <Col sm={10}>
-          <FormControl
-            type="text"
-            value={signUpUserName}
-            placeholder="User Name"
-            onChange={this.handleInputChange}
-          />
-        </Col>
-      </FormGroup>
+      <FormControl onChange={this.handleInputChange} margin="normal" required fullWidth>
+        <InputLabel htmlFor="signUpUserName">User Name</InputLabel>
+        <Input id="signUpUserName" name="email" value={signUpUserName} />
+      </FormControl>
     )
 
     const passwordInput = (
-      <FormGroup controlId="signUpPassword">
-        <Col componentClass={ControlLabel} sm={2}>
-          Password
-        </Col>
-        <Col sm={10}>
-          <FormControl
-            type="password"
-            value={signUpPassword}
-            placeholder="Password"
-            onChange={this.handleInputChange}
-          />
-        </Col>
-      </FormGroup>
+      <FormControl onChange={this.handleInputChange} margin="normal" required fullWidth>
+        <InputLabel htmlFor="signUpPassword">Password</InputLabel>
+        <Input id="signUpPassword" name="password" type="password" value={signUpPassword}  />
+      </FormControl>
     )
 
     return (
-      <Well bsSize="large">
-        <Form onSubmit={this.handleSignUpSubmit} horizontal>
+      <Fragment>
+        <CssBaseline />
+        <Avatar>
+          <LockIcon />
+        </Avatar>
+        <Typography component="h1" variant="h5">Sign Up For an Account</Typography>
+        <form onSubmit={this.handleSignUpSubmit} style={{ width: '100%' }}>
           {emailInput}
           {userNameInput}
           {passwordInput}
-          <FormGroup>
-            <Col smOffset={2} sm={10}>
-              <Button block type="submit" disabled={!this.validateForm()}>Sign Up for an Account</Button>
-            </Col>
-          </FormGroup>
-        </Form>
-      </Well>
+          <Button type="submit" fullWidth variant="contained" color="primary" disabled={!this.validateForm()}>Sign Up</Button>
+        </form>
+      </Fragment>
     )
   }
 }

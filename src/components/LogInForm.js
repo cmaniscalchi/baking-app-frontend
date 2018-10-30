@@ -1,9 +1,8 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
-import Form from '@material-ui/core/Form'
-
-
+import { CssBaseline, Avatar, FormControl, Input, InputLabel, Button, Paper, Typography } from '@material-ui/core'
+import LockIcon from '@material-ui/icons/LockOutlined'
 import { loginUser } from '../actions'
 
 class LogInForm extends Component {
@@ -27,49 +26,32 @@ class LogInForm extends Component {
     let { logInEmail, logInPassword } = this.state
 
     const emailInput = (
-      // <FormGroup controlId="logInEmail">
-      //   <Col componentClass={ControlLabel} sm={2}>
-      //     Email
-      //   </Col>
-      //   <Col sm={10}>
-      //     <FormControl
-      //       type="email"
-      //       value={logInEmail}
-      //       placeholder="Email"
-      //       onChange={this.handleInputChange}
-      //     />
-      //   </Col>
-      // </FormGroup>
+      <FormControl onChange={this.handleInputChange} margin="normal" required fullWidth>
+        <InputLabel htmlFor="email">Email Address</InputLabel>
+        <Input id="logInEmail" name="email" value={logInEmail} autoFocus />
+      </FormControl>
     )
 
     const passwordInput = (
-      <FormGroup controlId="logInPassword">
-        <Col componentClass={ControlLabel} sm={2}>
-          Password
-        </Col>
-        <Col sm={10}>
-          <FormControl
-            type="password"
-            value={logInPassword}
-            placeholder="Password"
-            onChange={this.handleInputChange}
-          />
-        </Col>
-      </FormGroup>
+      <FormControl onChange={this.handleInputChange} margin="normal" required fullWidth>
+        <InputLabel htmlFor="password">Password</InputLabel>
+        <Input name="password" type="password" value={logInPassword} id="logInPassword" />
+      </FormControl>
     )
 
     return (
-      <Well bsSize="large">
-        <Form onSubmit={this.handleLoginSubmit} horizontal>
+      <Fragment>
+        <CssBaseline />
+        <Avatar>
+          <LockIcon />
+        </Avatar>
+        <Typography component="h1" variant="h5">Log In</Typography>
+        <form onSubmit={this.handleLoginSubmit} style={{ width: '100%', marginTop: '10px' }}>
           {emailInput}
           {passwordInput}
-          <FormGroup>
-            <Col smOffset={2} sm={10}>
-              <Button block type="submit" disabled={!this.validateForm()}>Sign In</Button>
-            </Col>
-          </FormGroup>
-        </Form>
-      </Well>
+          <Button type="submit" fullWidth variant="contained" color="primary" disabled={!this.validateForm()}>Sign In</Button>
+        </form>
+      </Fragment>
     )
   }
 }

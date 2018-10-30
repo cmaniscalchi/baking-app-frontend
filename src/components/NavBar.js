@@ -33,7 +33,7 @@ const NavBar = ({ loggedIn, logoutUser, user, location: { pathname } }) => {
           { loggedIn ? (
             <Button onClick={ handleLogoutUser } color="inherit">Log Out</Button>
           ) : (
-            <Button onClick={ handleLogoutUser } color="inherit" component={Link} to="/login">Log In or Sign Up</Button>
+            <Button color="inherit" component={Link} to="/login">Log In or Sign Up</Button>
           )}
         </Toolbar>
       </AppBar>
