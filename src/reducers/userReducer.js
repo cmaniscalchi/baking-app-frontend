@@ -1,11 +1,12 @@
-import { AUTHENTICATING_USER, FAILED_LOGIN, REMOVE_CURRENT_USER, SET_CURRENT_USER } from '../types'
+import { AUTHENTICATING_USER, FAILED_LOGIN, REMOVE_CURRENT_USER, SET_CURRENT_USER, OPEN_DRAWER, CLOSE_DRAWER } from '../types'
 
 const initialUsersState = {
   user: null,
   loggedIn: false,
   authenticatingUser: false,
   failedLogin: false,
-  error: null
+  error: null,
+  left: false
 }
 
 export default function userReducer(state = initialUsersState, action) {
@@ -19,6 +20,10 @@ export default function userReducer(state = initialUsersState, action) {
       return { ...state, failedLogin: true, error: action.payload, authenticatingUser: false }
     case REMOVE_CURRENT_USER:
       return initialUsersState
+    case OPEN_DRAWER:
+      return { ...state, left: true }
+    case CLOSE_DRAWER:
+      return { ...state, left: false }
     default:
       return state
   }

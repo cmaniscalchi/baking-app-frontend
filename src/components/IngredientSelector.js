@@ -30,12 +30,13 @@ class IngredientSelector extends Component {
     // console.log("IngredientSelector:", this.props, this.state)
     if (this.props.ingredientChoices) {
       let filteredIngredients = this.props.ingredientChoices
+      let input = this.state
       return (
         <div style={{width:'90%', margin: 'auto', position: 'relative'}}>
           <FormControl>
             <TextField
               onChange={this.handleChange}
-              value={this.state.input}
+              value={input}
               id="ingredient-search"
               label="Search Ingredients"
               style={{ margin: 8 }}
@@ -44,7 +45,7 @@ class IngredientSelector extends Component {
               margin="normal"
             />
           </FormControl>
-          { this.state.input !== '' ? filteredIngredients.filter(ingredient => ingredient.ingredient_name.toLowerCase().includes(this.state.input)).map(ingredient => <MenuItem key={ingredient.ingredient_name} value={ingredient.ingredient_name} onClick={() => this.selectIngredient(ingredient)}>{ingredient.ingredient_name}</MenuItem>) : null}
+          { input !== '' ? filteredIngredients.filter(ingredient => ingredient.ingredient_name.toLowerCase().includes(input)).map(ingredient => <MenuItem key={ingredient.ingredient_name} value={ingredient.ingredient_name} onClick={() => this.selectIngredient(ingredient)}>{ingredient.ingredient_name}</MenuItem>) : null }
         </div>
         )
       } else {

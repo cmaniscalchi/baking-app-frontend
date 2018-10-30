@@ -1,11 +1,12 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { withRouter, Link } from 'react-router-dom'
-import { logoutUser } from '../actions'
+import NavDrawer from './NavDrawer'
 import { AppBar, Toolbar, Typography, Button, IconButton } from '@material-ui/core'
 import MenuIcon from '@material-ui/icons/Menu'
+import { logoutUser, openDrawer } from '../actions'
 
-const NavBar = ({ loggedIn, logoutUser, user, location: { pathname } }) => {
+const NavBar = ({ loggedIn, logoutUser, openDrawer, left, user, location: { pathname } }) => {
 
   const handleLogoutUser = () => {
     if (loggedIn) {
@@ -19,17 +20,10 @@ const NavBar = ({ loggedIn, logoutUser, user, location: { pathname } }) => {
     <div style={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
-          <IconButton style={{ marginLeft: -12, marginRight: 20 }} color="inherit" aria-label="Menu">
+          <IconButton style={{ marginLeft: -12, marginRight: 20 }} color="inherit" aria-label="Menu" onClick={openDrawer}>
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" color="inherit" style={{ flexGrow: 1, textDecoration:'none' }} component={Link} to="/">My Baking App</Typography>
-          { loggedIn ? (
-            <div>
-              <Button component={Link} to="/">Home</Button>
-              <Button component={Link} to="/">Saved Recipes</Button>
-            </div>
-          ) : ( null
-          )}
           { loggedIn ? (
             <Button onClick={ handleLogoutUser } color="inherit">Log Out</Button>
           ) : (
@@ -37,10 +31,11 @@ const NavBar = ({ loggedIn, logoutUser, user, location: { pathname } }) => {
           )}
         </Toolbar>
       </AppBar>
+      { left === true ? <NavDrawer /> : null }
     </div>
   )
 }
 
-const mapStateToProps = ({ users: { loggedIn, user } }) => ({ loggedIn, user })
+const mapStateToProps = ({ users: { loggedIn, user, left } }) => ({ loggedIn, user, left })
 
-export default withRouter(connect(mapStateToProps, { logoutUser })(NavBar))
+export default withRouter(connect(mapStateToProps, { logoutUser, openDrawer })(NavBar))
