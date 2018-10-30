@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
-import { CssBaseline, Avatar, FormControl, Input, InputLabel, Button, Paper, Typography } from '@material-ui/core'
+import { CssBaseline, Avatar, FormControl, Input, InputLabel, Button, Typography } from '@material-ui/core'
 import LockIcon from '@material-ui/icons/LockOutlined'
 import { signUpUser } from '../actions'
 

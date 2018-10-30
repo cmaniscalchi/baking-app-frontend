@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { withRouter, Redirect } from 'react-router-dom'
-import { AppBar, Paper, Tabs, Tab } from '@material-ui/core'
+import { AppBar, Tabs, Tab } from '@material-ui/core'
 import LogInForm from './LogInForm'
 import SignUpForm from './SignUpForm'
 
@@ -20,14 +20,14 @@ class LogInSignUp extends Component {
       return <Redirect to="/" />
     } else {
       return (
-        <div style={{flexGrow: 1}}>
-          <Paper elevation={1}>
+        <div style={{ flexGrow: 1, width:'90%', margin: 'auto', position: 'relative', padding:'5%'}}>
+          <AppBar position="static">
             <Tabs value={value} onChange={this.handleChange}>
               <Tab value={0} label="Log In" />
               <Tab value={1} label="Sign Up" />
             </Tabs>
-            {value === 0 ? <LogInForm /> : <SignUpForm />}
-          </Paper>
+          </AppBar>
+          {value === 0 ? <LogInForm /> : <SignUpForm />}
         </div>
       )
     }

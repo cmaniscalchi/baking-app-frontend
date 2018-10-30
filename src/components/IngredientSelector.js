@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 // import IngredientList from './IngredientList'
-import { fetchIngredients } from '../actions'
+import { FormControl, TextField, MenuItem } from '@material-ui/core'
+import { addIngredientToRecipe, fetchIngredients } from '../actions'
 
 class IngredientSelector extends Component {
 
-  state = { searchedIngredient: '' }
+  state = { input: '' }
 
   componentDidMount() {
     let { ingredientChoices, fetchIngredients } = this.props
@@ -16,45 +17,42 @@ class IngredientSelector extends Component {
     }
   }
 
-  handleInputChange = event => {
-    this.setState({ [event.target.id]: event.target.value })
+  handleChange = event => {
+    this.setState({ input: event.target.value })
   }
 
-  // selectIngredient = ingredient => {
-  //   debugger
-  //   // console.log(ingredient)
-  //   return null
-  // }
-
-  // onChange={this.filterIngredients}
+  selectIngredient = ingredient => {
+    this.props.addIngredientToRecipe(ingredient)
+    this.setState({ input: '' })
+  }
 
   render() {
-    // console.log(this.state)
-
-    return (
-      <div style={{width:'90%', margin: 'auto', position: 'relative'}}>
-
-        <form controlId="searchedIngredient">
-          <h1 sm={2}>
-            Search for Ingredients:
-          </h1>
-
-          <input
-            type="text"
-            value={this.state.searchedIngredient}
-            placeholder="Search for Ingredients"
-            onChange={this.handleInputChange}
-          />
-
-        </form>
-        <ul style={{position: 'relative'}}>
-          {this.props.ingredientChoices.map(ingredient => <li key={ingredient.ingredient_name}>{ingredient.ingredient_name}</li>)}
-        </ul>
-      </div>
-    )
+    // console.log("IngredientSelector:", this.props, this.state)
+    if (this.props.ingredientChoices) {
+      let filteredIngredients = this.props.ingredientChoices
+      return (
+        <div style={{width:'90%', margin: 'auto', position: 'relative'}}>
+          <FormControl>
+            <TextField
+              onChange={this.handleChange}
+              value={this.state.input}
+              id="ingredient-search"
+              label="Search Ingredients"
+              style={{ margin: 8 }}
+              helperText="Search to Filter Ingredients"
+              fullWidth
+              margin="normal"
+            />
+          </FormControl>
+          { this.state.input !== '' ? filteredIngredients.filter(ingredient => ingredient.ingredient_name.toLowerCase().includes(this.state.input)).map(ingredient => <MenuItem key={ingredient.ingredient_name} value={ingredient.ingredient_name} onClick={() => this.selectIngredient(ingredient)}>{ingredient.ingredient_name}</MenuItem>) : null}
+        </div>
+        )
+      } else {
+        return null
+      }
+    }
   }
-}
 
-const mapStateToProps = ({ ingredients: { ingredientChoices }}) => ({ ingredientChoices })
+  const mapStateToProps = ({ ingredients: { ingredientChoices }}) => ({ ingredientChoices })
 
-export default connect(mapStateToProps, { fetchIngredients })(IngredientSelector)
+  export default connect(mapStateToProps, { addIngredientToRecipe, fetchIngredients })(IngredientSelector)
