@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react'
-import WithAuth from '../hocs/WithAuth'
+import withAuth from '../hocs/withAuth'
 import IngredientSelector from '../components/IngredientSelector'
 import IngredientList from '../components/IngredientList'
 
@@ -15,4 +15,4 @@ class RecipeConverter extends Component {
   }
 }
 
-export default WithAuth(RecipeConverter)
+export default withAuth(RecipeConverter)

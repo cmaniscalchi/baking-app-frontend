@@ -12,7 +12,7 @@ class SignupForm extends Component {
     this.setState({ [event.target.id]: event.target.value })
   }
 
-  validateForm() {
+  validateForm = () => {
     return this.state.signUpEmail.length > 0 && this.state.signUpUserName.length && this.state.signUpPassword.length > 0
   }
 

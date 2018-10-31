@@ -6,7 +6,6 @@ const IngredientList = ({ recipeIngredients }) => {
   console.log("IngredientList props:", recipeIngredients)
 
   if (recipeIngredients.length > 0) {
-    debugger;
     return (
       <div style={{display: 'flex', margin:'5%'}}>
         <List>
