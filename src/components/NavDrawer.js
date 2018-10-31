@@ -1,12 +1,24 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { withRouter, Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { Drawer, List, ListItem, ListItemText } from '@material-ui/core'
 import { closeDrawer } from '../actions'
 
-const NavDrawer = ({ closeDrawer, left, loggedIn }) => {
+class NavDrawer extends Component {
 
-  const sideList = (
+  //this.props.left is a prop required by Material UI, it indicates which side the drawer component should open on
+  //the values for "left" are either true or false for drawer open and closed
+
+  componentDidMount() {
+    let { closeDrawer, left } = this.props
+    if (left) {
+      return closeDrawer()
+    } else {
+      return null
+    }
+  }
+
+  sideList = (
     <div>
       <List style={{ width: 250 }}>
         <ListItem button key={1} component={Link} to="/">
@@ -19,7 +31,10 @@ const NavDrawer = ({ closeDrawer, left, loggedIn }) => {
     </div>
   )
 
-  if (loggedIn) {
+render() {
+  if (this.props.loggedIn) {
+    let { closeDrawer, left } = this.props
+
     return (
       <Drawer open={left} onClose={closeDrawer}>
         <div
@@ -28,7 +43,7 @@ const NavDrawer = ({ closeDrawer, left, loggedIn }) => {
           onClick={closeDrawer}
           onKeyDown={closeDrawer}
         >
-          {sideList}
+          {this.sideList}
         </div>
       </Drawer>
       )
@@ -36,7 +51,7 @@ const NavDrawer = ({ closeDrawer, left, loggedIn }) => {
       return null
     }
   }
-
+}
 
 const mapStateToProps = ({ users: { left , loggedIn } }) => ({ left, loggedIn })
 
