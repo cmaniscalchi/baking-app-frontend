@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { List, ListItem, ListItemText } from '@material-ui/core'
 
 const IngredientList = ({ recipeIngredients }) => {
-  console.log("IngredientList props:", recipeIngredients)
+  // console.log("IngredientList props:", recipeIngredients)
 
   if (recipeIngredients.length > 0) {
     return (

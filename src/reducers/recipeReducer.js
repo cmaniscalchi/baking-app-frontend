@@ -6,7 +6,7 @@ const initialRecipesState = {
 }
 
 export default function recipeReducer(state = initialRecipesState, action) {
-  console.log("recipeReducer:", state, action)
+  // console.log("recipeReducer:", state, action)
   switch (action.type) {
   case ADD_INGREDIENT:
   return { ...state, recipeIngredients: state.recipeIngredients.concat(action.payload) }
