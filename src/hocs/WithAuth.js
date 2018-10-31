@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { Redirect } from 'react-router'
 import { CircularProgress } from '@material-ui/core'
 
-const WithAuth = WrappedComponent => {
+const withAuth = WrappedComponent => {
   class AuthorizedComponent extends Component {
 
     componentDidMount() {
@@ -17,8 +17,8 @@ const WithAuth = WrappedComponent => {
       if (localStorage.getItem('jwt') && this.props.loggedIn) {
         return <WrappedComponent />
       } else if (localStorage.getItem('jwt') && this.props.authenticatingUser) {
-        return <CircularProgress />
-      } else {
+        return <CircularProgress style={{ display: 'block', marginLeft: 'auto', marginRight: 'auto' }}/>
+          } else {
         return <Redirect to="/login" />
       }
     }
@@ -34,4 +34,4 @@ const WithAuth = WrappedComponent => {
   return connect(mapStateToProps, actions)(AuthorizedComponent)
 }
 
-export default WithAuth
+export default withAuth
