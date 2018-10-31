@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 // import IngredientList from './IngredientList'
-import { FormControl, TextField, MenuItem } from '@material-ui/core'
+import { FormControl, List, ListItem, ListItemText, FormLabel, Input } from '@material-ui/core'
 import { addIngredientToRecipe, fetchIngredients } from '../actions'
 
 class IngredientSelector extends Component {
@@ -17,8 +17,8 @@ class IngredientSelector extends Component {
     }
   }
 
-  handleChange = event => {
-    this.setState({ input: event.target.value })
+  handleChange = input => event => {
+    this.setState({ [input]: event.target.value })
   }
 
   selectIngredient = ingredient => {
@@ -27,33 +27,48 @@ class IngredientSelector extends Component {
   }
 
   render() {
-    // console.log("IngredientSelector:", this.props, this.state)
-    if (this.props.ingredientChoices) {
-      let filteredIngredients = this.props.ingredientChoices
-      let input = this.state
+    console.log("IngredientSelector:", this.props, this.state)
+    let { input } = this.state
+
+    if (this.props.ingredientChoices.length > 0) {
+      let { ingredientChoices } = this.props
+      let filteredIngredients = ingredientChoices.filter(ingred => ingred.ingredient_name.toLowerCase().includes(input))
+
       return (
-        <div style={{width:'90%', margin: 'auto', position: 'relative'}}>
-          <FormControl>
-            <TextField
-              onChange={this.handleChange}
-              value={input}
-              id="ingredient-search"
-              label="Search Ingredients"
-              style={{ margin: 8 }}
-              helperText="Search to Filter Ingredients"
-              fullWidth
-              margin="normal"
-            />
-          </FormControl>
-          { input !== '' ? filteredIngredients.filter(ingredient => ingredient.ingredient_name.toLowerCase().includes(input)).map(ingredient => <MenuItem key={ingredient.ingredient_name} value={ingredient.ingredient_name} onClick={() => this.selectIngredient(ingredient)}>{ingredient.ingredient_name}</MenuItem>) : null }
+        <div>
+          <div style={{display: 'flex', margin:'5%'}}>
+            <FormControl style={{width:'90%', position: 'relative'}}>
+              <FormLabel>Search to Filter Ingredients</FormLabel>
+              <Input
+                type="text"
+                onChange={this.handleChange('input')}
+                value={input}
+                id="ingredient-search"
+                style={{ margin: 8 }}
+                fullWidth
+              />
+            </FormControl>
+          </div>
+          <div style={{display: 'flex', margin:'5%'}}>
+            <List>
+              {input !== '' ? filteredIngredients.map(ingred => {
+                return (
+                  <ListItem button onClick={() => this.selectIngredient(ingred)} key={ingred.ingredient_name}>
+                    <ListItemText primary={ingred.ingredient_name} />
+                  </ListItem>
+                )
+              }) : null
+              }
+            </List>
+          </div>
         </div>
-        )
-      } else {
-        return null
-      }
+      )
+    } else {
+      return null
     }
   }
+}
 
-  const mapStateToProps = ({ ingredients: { ingredientChoices }}) => ({ ingredientChoices })
+const mapStateToProps = ({ ingredients: { ingredientChoices }}) => ({ ingredientChoices })
 
-  export default connect(mapStateToProps, { addIngredientToRecipe, fetchIngredients })(IngredientSelector)
+export default connect(mapStateToProps, { addIngredientToRecipe, fetchIngredients })(IngredientSelector)
