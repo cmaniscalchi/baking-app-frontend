@@ -1,15 +1,30 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { List, ListItem, ListItemText } from '@material-ui/core'
 
-const IngredientList = ({ ingredientChoices }) => {
+const IngredientList = ({ recipeIngredients }) => {
+  console.log("IngredientList props:", recipeIngredients)
 
-  return (
-    <ul>
-      {ingredientChoices.map(ingredient => <li key={ingredient.ingredient_name}>{ingredient.ingredient_name}</li>)}
-    </ul>
-  )
+  if (recipeIngredients.length > 0) {
+    debugger;
+    return (
+      <div style={{display: 'flex', margin:'5%'}}>
+        <List>
+          {recipeIngredients.map(ingred => {
+            return (
+              <ListItem button key={ingred.ingredient_name}>
+                <ListItemText primary={ingred.ingredient_name} />
+              </ListItem>
+            )
+          })}
+        </List>
+      </div>
+    )
+  } else {
+    return null
+  }
 }
 
-const mapStateToProps = ({ ingredients: { ingredientChoices }}) => ({ ingredientChoices })
+const mapStateToProps = ({ recipes: { recipeIngredients }}) => ({ recipeIngredients })
 
 export default connect(mapStateToProps)(IngredientList)

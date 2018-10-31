@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import WithAuth from '../hocs/WithAuth'
 import IngredientSelector from '../components/IngredientSelector'
+import IngredientList from '../components/IngredientList'
 
 class RecipeConverter extends Component {
 
@@ -8,6 +9,7 @@ class RecipeConverter extends Component {
     return (
       <Fragment>
         <IngredientSelector />
+        <IngredientList />
       </Fragment>
     )
   }
