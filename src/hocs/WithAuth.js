@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import * as actions from '../actions'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router'
+import { CircularProgress } from '@material-ui/core'
 
 const WithAuth = WrappedComponent => {
   class AuthorizedComponent extends Component {
@@ -16,7 +17,7 @@ const WithAuth = WrappedComponent => {
       if (localStorage.getItem('jwt') && this.props.loggedIn) {
         return <WrappedComponent />
       } else if (localStorage.getItem('jwt') && this.props.authenticatingUser) {
-        return "Loading Component"
+        return <CircularProgress />
       } else {
         return <Redirect to="/login" />
       }
