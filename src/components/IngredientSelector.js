@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-// import IngredientList from './IngredientList'
 import { FormControl, List, ListItem, ListItemText, FormLabel, Input } from '@material-ui/core'
 import { addIngredientToRecipe, fetchIngredients } from '../actions'
 
@@ -26,41 +25,48 @@ class IngredientSelector extends Component {
     this.setState({ input: '' })
   }
 
+  ingredientInput = () => {
+    let { input } = this.state
+
+    return (
+      <div style={{display: 'flex', margin:'5%'}}>
+        <FormControl style={{width:'90%', position: 'relative'}}>
+          <FormLabel>Search to Filter Ingredients</FormLabel>
+          <Input type="text" onChange={this.handleChange('input')} value={input} id="ingredient-search" style={{ margin: 8 }} fullWidth />
+        </FormControl>
+      </div>
+    )
+  }
+
+  filteredList = () => {
+    let { input } = this.state
+    let { ingredientChoices } = this.props
+    let filteredIngredients = ingredientChoices.filter(ingred => ingred.ingredient_name.toLowerCase().includes(input))
+
+    return (
+      <div style={{display: 'flex', margin:'5%'}}>
+        <List>
+          {filteredIngredients.map(ingred => {
+            return (
+              <ListItem button onClick={() => this.selectIngredient(ingred)} key={ingred.ingredient_name}>
+                <ListItemText primary={ingred.ingredient_name} />
+              </ListItem>
+            )
+          })}
+        </List>
+      </div>
+    )
+  }
+
   render() {
-    console.log("IngredientSelector:", this.props, this.state)
+    // console.log("IngredientSelector:", this.props, this.state)
     let { input } = this.state
 
     if (this.props.ingredientChoices.length > 0) {
-      let { ingredientChoices } = this.props
-      let filteredIngredients = ingredientChoices.filter(ingred => ingred.ingredient_name.toLowerCase().includes(input))
-
       return (
         <div>
-          <div style={{display: 'flex', margin:'5%'}}>
-            <FormControl style={{width:'90%', position: 'relative'}}>
-              <FormLabel>Search to Filter Ingredients</FormLabel>
-              <Input
-                type="text"
-                onChange={this.handleChange('input')}
-                value={input}
-                id="ingredient-search"
-                style={{ margin: 8 }}
-                fullWidth
-              />
-            </FormControl>
-          </div>
-          <div style={{display: 'flex', margin:'5%'}}>
-            <List>
-              {input !== '' ? filteredIngredients.map(ingred => {
-                return (
-                  <ListItem button onClick={() => this.selectIngredient(ingred)} key={ingred.ingredient_name}>
-                    <ListItemText primary={ingred.ingredient_name} />
-                  </ListItem>
-                )
-              }) : null
-              }
-            </List>
-          </div>
+          {this.ingredientInput()}
+          {input !== '' ? this.filteredList() : null}
         </div>
       )
     } else {
