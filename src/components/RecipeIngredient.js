@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { List } from 'semantic-ui-react'
+import { List, Button } from 'semantic-ui-react'
 import { removeIngredients } from '../actions'
 
 class RecipeIngredient extends Component {
@@ -21,12 +21,12 @@ class RecipeIngredient extends Component {
     this.setState({ checked: newChecked })
   }
 
-  // handleIngredientRemove = () => {
-  //   let { removeIngredients } = this.props
-  //   let { checked } = this.state
-  //   removeIngredients(checked)
-  //   this.setState({ checked: [] })
-  // }
+  handleIngredientRemove = () => {
+    let { removeIngredients } = this.props
+    let { checked } = this.state
+    removeIngredients(checked)
+    this.setState({ checked: [] })
+  }
 
   render() {
     console.log("RecipeIngredient:", this.props, this.state)
@@ -37,10 +37,10 @@ class RecipeIngredient extends Component {
 
       return (
         <div>
-          <List.Item key={ingredient_name} onClick={this.handleToggle(ingredient)}>
-                      {ingredient_name}
-          </List.Item>
-          {/* {checked.length > 0 ? <Button onClick={this.handleIngredientRemove} color="primary">Remove Checked Ingredients</Button> : null} */}
+        <List.Item key={ingredient_name} onClick={this.handleToggle(ingredient)}>
+        {ingredient_name}
+        </List.Item>
+        {checked.length > 0 ? <Button onClick={this.handleIngredientRemove}>Remove Checked Ingredients</Button> : null}
         </div>
       )
     } else {
@@ -49,6 +49,6 @@ class RecipeIngredient extends Component {
   }
 }
 
-  // const mapStateToProps = ({ recipes: { recipeIngredients }}) => ({ recipeIngredients })
+// const mapStateToProps = ({ recipes: { recipeIngredients }}) => ({ recipeIngredients })
 
-  export default connect(null, { removeIngredients })(RecipeIngredient)
+export default connect(null, { removeIngredients })(RecipeIngredient)

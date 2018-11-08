@@ -29,10 +29,10 @@ class IngredientSelector extends Component {
     let { input } = this.state
 
     return (
-      <div style={{display: 'flex', margin:'5%'}}>
-      <Segment style={{width:'90%', position: 'relative'}}>
-      <Label attached='top'>Search to Filter Ingredients</Label>
-      <Input loading icon='user' placeholder='Search' onChange={this.handleChange('input')} value={input} />
+      <div style={{display: 'flex', margin:'5%', width:'90%', position: 'relative'}}>
+      <Segment style={{width:'100%'}}>
+      <Label attached='top' style={{width:'100%', position: 'relative'}}>Search to Add Recipe Ingredients</Label>
+      <Input placeholder='Search' onChange={this.handleChange('input')} value={input} style={{width:'100%', position: 'relative'}}/>
       </Segment>
       </div>
     )
@@ -44,8 +44,8 @@ class IngredientSelector extends Component {
     let filteredIngredients = ingredientChoices.filter(ingred => ingred.ingredient_name.toLowerCase().includes(input))
 
     return (
-      <div style={{display: 'flex', margin:'5%'}}>
-      <List divided relaxed>
+      <div style={{display: 'flex', margin:'5%', width:'90%', position: 'relative'}}>
+      <List divided relaxed style={{width:'100%'}}>
       {filteredIngredients.map(ingred => {
         return (
           <List.Item onClick={() => this.selectIngredient(ingred)} key={ingred.ingredient_name}>
