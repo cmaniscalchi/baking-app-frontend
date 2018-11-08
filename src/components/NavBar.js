@@ -1,16 +1,15 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { withRouter, Link } from 'react-router-dom'
-// import NavDrawer from './NavDrawer'
-import { Menu, Toolbar, Typography, Button, IconButton } from 'semantic-ui-react'
-import { logoutUser, openDrawer, closeDrawer } from '../actions'
+import { withRouter, NavLink } from 'react-router-dom'
+import { Menu, Icon } from 'semantic-ui-react'
+import { logoutUser, openSidebar, closeSidebar } from '../actions'
 
 class NavBar extends Component {
 
   componentDidMount() {
-    let { closeDrawer, drawerOpen } = this.props
-    if (drawerOpen) {
-      return closeDrawer()
+    let { closeSidebar, sidebarOpen } = this.props
+    if (sidebarOpen) {
+      return closeSidebar()
     } else {
       return null
     }
@@ -26,26 +25,26 @@ class NavBar extends Component {
   }
 
   render() {
-    let { loggedIn, openDrawer, drawerOpen } = this.props
+    let { loggedIn, openSidebar } = this.props
 
     return (
-      <div style={{ flexGrow: 1 }}>
-        <Menu stackable>
-        <Menu.Item>
-          <h6 component={Link} to="/">My Baking App</h6>
-          </Menu.Item>
-            { loggedIn ? (
-              <Menu.Item onClick={ this.handleLogoutUser } color="inherit">Log Out</Menu.Item>
-            ) : (
-              <Menu.Item component={Link} to="/login">Log In or Sign Up</Menu.Item>
-            )}
-          </Menu>
-      </div>
+      <Menu borderless attached='top' style={{width:'100%'}}>
+      <Menu.Item onClick={openSidebar}>
+      <Icon name='bars' />
+      </Menu.Item>
+      <Menu.Item header as={NavLink} to="/">My Baking App</Menu.Item>
+      <Menu.Menu position='right'>
+      { loggedIn ? (
+        <Menu.Item onClick={ this.handleLogoutUser }>Log Out</Menu.Item>
+      ) : (
+        <Menu.Item as={NavLink} to="/login">Log In or Sign Up</Menu.Item>
+      )}
+      </Menu.Menu>
+      </Menu>
     )
   }
 }
-// { drawerOpen === true ? <NavDrawer /> : null }
 
-const mapStateToProps = ({ users: { loggedIn, user, drawerOpen } }) => ({ loggedIn, user, drawerOpen })
+const mapStateToProps = ({ users: { loggedIn, user, sidebarOpen } }) => ({ loggedIn, user, sidebarOpen })
 
-export default withRouter(connect(mapStateToProps, { logoutUser, closeDrawer, openDrawer })(NavBar))
+export default withRouter(connect(mapStateToProps, { logoutUser, closeSidebar, openSidebar })(NavBar))
