@@ -1,4 +1,4 @@
-import { AUTHENTICATING_USER, FAILED_LOGIN, REMOVE_CURRENT_USER, SET_CURRENT_USER, OPEN_DRAWER, CLOSE_DRAWER } from '../types'
+import { AUTHENTICATING_USER, FAILED_LOGIN, REMOVE_CURRENT_USER, SET_CURRENT_USER, OPEN_SIDEBAR, CLOSE_SIDEBAR } from '../types'
 
 export const authenticatingUser = () => ({ type: AUTHENTICATING_USER })
 
@@ -6,9 +6,9 @@ export const failedLogin = error => ({ type: FAILED_LOGIN, payload: error })
 
 export const setCurrentUser = userData => ({ type: SET_CURRENT_USER, payload: userData })
 
-export const openDrawer = () => ({ type: OPEN_DRAWER })
+export const openSidebar = () => ({ type: OPEN_SIDEBAR })
 
-export const closeDrawer = () => ({ type: CLOSE_DRAWER })
+export const closeSidebar = () => ({ type: CLOSE_SIDEBAR })
 
 // const BASE_URL = `${process.env.REACT_APP_API_ENDPOINT}/api/v1/`
 const BASE_URL = `http://localhost:3000/api/v1/`
