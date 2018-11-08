@@ -9,8 +9,8 @@ import { logoutUser, openDrawer, closeDrawer } from '../actions'
 class NavBar extends Component {
 
   componentDidMount() {
-    let { closeDrawer, left } = this.props
-    if (left) {
+    let { closeDrawer, drawerOpen } = this.props
+    if (drawerOpen) {
       return closeDrawer()
     } else {
       return null
@@ -27,7 +27,7 @@ class NavBar extends Component {
   }
 
   render() {
-    let { loggedIn, openDrawer, left } = this.props
+    let { loggedIn, openDrawer, drawerOpen } = this.props
 
     return (
       <div style={{ flexGrow: 1 }}>
@@ -44,12 +44,12 @@ class NavBar extends Component {
             )}
           </Toolbar>
         </AppBar>
-        { left === true ? <NavDrawer /> : null }
+        { drawerOpen === true ? <NavDrawer /> : null }
       </div>
     )
   }
 }
 
-const mapStateToProps = ({ users: { loggedIn, user, left } }) => ({ loggedIn, user, left })
+const mapStateToProps = ({ users: { loggedIn, user, drawerOpen } }) => ({ loggedIn, user, drawerOpen })
 
 export default withRouter(connect(mapStateToProps, { logoutUser, closeDrawer, openDrawer })(NavBar))

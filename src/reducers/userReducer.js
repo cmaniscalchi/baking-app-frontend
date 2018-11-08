@@ -6,7 +6,7 @@ const initialUsersState = {
   authenticatingUser: false,
   failedLogin: false,
   error: null,
-  left: false
+  drawerOpen: false
 }
 
 export default function userReducer(state = initialUsersState, action) {
@@ -21,9 +21,9 @@ export default function userReducer(state = initialUsersState, action) {
     case REMOVE_CURRENT_USER:
       return initialUsersState
     case OPEN_DRAWER:
-      return { ...state, left: true }
+      return { ...state, drawerOpen: true }
     case CLOSE_DRAWER:
-      return { ...state, left: false }
+      return { ...state, drawerOpen: false }
     default:
       return state
   }

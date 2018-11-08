@@ -1,10 +1,12 @@
 import React from 'react'
 import { withRouter, Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { Drawer, List, ListItem, ListItemText } from '@material-ui/core'
-import { closeDrawer } from '../actions'
+import { SwipeableDrawer, List, ListItem, ListItemText, IconButton, Divider } from '@material-ui/core'
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles'
+import { closeDrawer, openDrawer } from '../actions'
 
-const NavDrawer = ({ closeDrawer, left, loggedIn }) => {
+const NavDrawer = ({ closeDrawer, drawerOpen, loggedIn, openDrawer }) => {
 
   const sideList = (
     <div>
@@ -19,9 +21,20 @@ const NavDrawer = ({ closeDrawer, left, loggedIn }) => {
     </div>
   )
 
+  const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent)
+
+  const theme = createMuiTheme({ typography: { useNextVariants: true } })
+
   if (loggedIn) {
     return (
-      <Drawer open={left} onClose={closeDrawer}>
+      <MuiThemeProvider theme={theme}>
+      <SwipeableDrawer disableBackdropTransition={!iOS} disableDiscovery={iOS} anchor="left" open={drawerOpen} onOpen={openDrawer} onClose={closeDrawer}>
+      <div style={{ display: 'flex', alignItems: 'center', padding: '0 8px', justifyContent: 'flex-start'}}>
+            <IconButton onClick={closeDrawer}>
+              <ChevronLeftIcon />
+            </IconButton>
+          </div>
+          <Divider />
         <div
           tabIndex={0}
           role="button"
@@ -30,7 +43,8 @@ const NavDrawer = ({ closeDrawer, left, loggedIn }) => {
         >
           {sideList}
         </div>
-      </Drawer>
+      </SwipeableDrawer>
+      </MuiThemeProvider>
       )
     } else {
       return null
@@ -38,6 +52,6 @@ const NavDrawer = ({ closeDrawer, left, loggedIn }) => {
   }
 
 
-const mapStateToProps = ({ users: { left , loggedIn } }) => ({ left, loggedIn })
+const mapStateToProps = ({ users: { drawerOpen , loggedIn } }) => ({ drawerOpen, loggedIn })
 
-export default withRouter(connect(mapStateToProps, { closeDrawer })(NavDrawer))
+export default withRouter(connect(mapStateToProps, { closeDrawer, openDrawer })(NavDrawer))
