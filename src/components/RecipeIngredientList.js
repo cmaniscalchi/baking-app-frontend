@@ -4,7 +4,7 @@ import RecipeIngredient from './RecipeIngredient'
 import { List, Paper, Typography } from '@material-ui/core'
 
 const RecipeIngredientList = ({ recipeIngredients }) => {
-  console.log("RecipeIngredientList:", recipeIngredients)
+  // console.log("RecipeIngredientList:", recipeIngredients)
 
   if (recipeIngredients.length > 0) {
 
