@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Button, Checkbox, ListItem, ListItemText } from '@material-ui/core'
+import { List } from 'semantic-ui-react'
 import { removeIngredients } from '../actions'
 
 class RecipeIngredient extends Component {
@@ -37,14 +37,9 @@ class RecipeIngredient extends Component {
 
       return (
         <div>
-          <ListItem key={ingredient_name} role={undefined} dense button onClick={this.handleToggle(ingredient)}>
-            <Checkbox
-              checked={this.state.checked.indexOf(ingredient) !== -1}
-              tabIndex={-1}
-              disableRipple
-            />
-            <ListItemText primary={ingredient_name} />
-          </ListItem>
+          <List.Item key={ingredient_name} onClick={this.handleToggle(ingredient)}>
+                      {ingredient_name}
+          </List.Item>
           {/* {checked.length > 0 ? <Button onClick={this.handleIngredientRemove} color="primary">Remove Checked Ingredients</Button> : null} */}
         </div>
       )

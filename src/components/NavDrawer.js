@@ -2,8 +2,6 @@ import React from 'react'
 import { withRouter, Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { SwipeableDrawer, List, ListItem, ListItemText, IconButton, Divider } from '@material-ui/core'
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles'
 import { closeDrawer, openDrawer } from '../actions'
 
 const NavDrawer = ({ closeDrawer, drawerOpen, loggedIn, openDrawer }) => {

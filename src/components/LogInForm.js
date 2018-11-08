@@ -1,8 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
-import { CssBaseline, Avatar, FormControl, Input, InputLabel, Button, Typography } from '@material-ui/core'
-import LockIcon from '@material-ui/icons/LockOutlined'
+import { Button, Form } from 'semantic-ui-react'
 import { loginUser } from '../actions'
 
 class LogInForm extends Component {
@@ -26,31 +25,27 @@ class LogInForm extends Component {
     let { logInEmail, logInPassword } = this.state
 
     const emailInput = (
-      <FormControl onChange={this.handleInputChange} margin="normal" required fullWidth>
-        <InputLabel htmlFor="email">Email Address</InputLabel>
-        <Input id="logInEmail" name="email" value={logInEmail} autoFocus />
-      </FormControl>
+      <Form.Field onChange={this.handleInputChange} margin="normal" required fullWidth>
+        <label htmlFor="email">Email Address</label>
+        <input id="logInEmail" name="email" value={logInEmail} autoFocus />
+      </Form.Field>
     )
 
     const passwordInput = (
-      <FormControl onChange={this.handleInputChange} margin="normal" required fullWidth>
-        <InputLabel htmlFor="password">Password</InputLabel>
-        <Input name="password" type="password" value={logInPassword} id="logInPassword" />
-      </FormControl>
+      <Form.Field onChange={this.handleInputChange} margin="normal" required fullWidth>
+        <label htmlFor="password">Password</label>
+        <input id="logInPassword" name="password" type="password" value={logInPassword} />
+      </Form.Field>
     )
 
     return (
       <Fragment>
-        <CssBaseline />
-        <Avatar>
-          <LockIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5">Log In</Typography>
-        <form onSubmit={this.handleLoginSubmit} style={{ width: '100%', marginTop: '10px' }}>
+        <h1>Log In</h1>
+        <Form onSubmit={this.handleLoginSubmit} style={{ width: '100%', marginTop: '10px' }}>
           {emailInput}
           {passwordInput}
           <Button type="submit" fullWidth variant="contained" color="primary" disabled={!this.validateForm()}>Sign In</Button>
-        </form>
+        </Form>
       </Fragment>
     )
   }

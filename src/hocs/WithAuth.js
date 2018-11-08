@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import * as actions from '../actions'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router'
-import { CircularProgress } from '@material-ui/core'
+import { Loader } from 'semantic-ui-react'
 
 const withAuth = WrappedComponent => {
   class AuthorizedComponent extends Component {
@@ -17,7 +17,7 @@ const withAuth = WrappedComponent => {
       if (localStorage.getItem('jwt') && this.props.loggedIn) {
         return <WrappedComponent />
       } else if (localStorage.getItem('jwt') && this.props.authenticatingUser) {
-        return <CircularProgress style={{ display: 'block', marginLeft: 'auto', marginRight: 'auto' }}/>
+        return <Loader style={{ display: 'block', marginLeft: 'auto', marginRight: 'auto' }}/>
           } else {
         return <Redirect to="/login" />
       }

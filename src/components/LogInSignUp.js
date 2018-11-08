@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { withRouter, Redirect } from 'react-router-dom'
-import { AppBar, Tabs, Tab } from '@material-ui/core'
+import { Menu } from 'semantic-ui-react'
 import LogInForm from './LogInForm'
-import SignUpForm from './SignUpForm'
+// import SignUpForm from './SignUpForm'
 
 class LogInSignUp extends Component {
 
@@ -21,13 +21,11 @@ class LogInSignUp extends Component {
     } else {
       return (
         <div style={{ flexGrow: 1, width:'90%', margin: 'auto', position: 'relative', padding:'5%'}}>
-          <AppBar position="static">
-            <Tabs value={value} onChange={this.handleChange}>
-              <Tab value={0} label="Log In" />
-              <Tab value={1} label="Sign Up" />
-            </Tabs>
-          </AppBar>
-          {value === 0 ? <LogInForm /> : <SignUpForm />}
+        <Menu tabular value={value} onChange={this.handleChange}>
+        <Menu.Item value={0} label="Log In" />
+        <Menu.Item value={1} label="Sign Up" />
+        </Menu>
+        {value === 0 ? <LogInForm /> : null}
         </div>
       )
     }

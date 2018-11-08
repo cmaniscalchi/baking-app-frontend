@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { withRouter, Link } from 'react-router-dom'
-import NavDrawer from './NavDrawer'
-import { AppBar, Toolbar, Typography, Button, IconButton } from '@material-ui/core'
-import MenuIcon from '@material-ui/icons/Menu'
+// import NavDrawer from './NavDrawer'
+import { Menu, Toolbar, Typography, Button, IconButton } from 'semantic-ui-react'
 import { logoutUser, openDrawer, closeDrawer } from '../actions'
 
 class NavBar extends Component {
@@ -31,24 +30,21 @@ class NavBar extends Component {
 
     return (
       <div style={{ flexGrow: 1 }}>
-        <AppBar position="static">
-          <Toolbar>
-            <IconButton style={{ marginLeft: -12, marginRight: 20 }} color="inherit" aria-label="Menu" onClick={openDrawer}>
-              <MenuIcon />
-            </IconButton>
-            <Typography variant="h6" color="inherit" style={{ flexGrow: 1, textDecoration:'none' }} component={Link} to="/">My Baking App</Typography>
+        <Menu stackable>
+        <Menu.Item>
+          <h6 component={Link} to="/">My Baking App</h6>
+          </Menu.Item>
             { loggedIn ? (
-              <Button onClick={ this.handleLogoutUser } color="inherit">Log Out</Button>
+              <Menu.Item onClick={ this.handleLogoutUser } color="inherit">Log Out</Menu.Item>
             ) : (
-              <Button color="inherit" component={Link} to="/login">Log In or Sign Up</Button>
+              <Menu.Item component={Link} to="/login">Log In or Sign Up</Menu.Item>
             )}
-          </Toolbar>
-        </AppBar>
-        { drawerOpen === true ? <NavDrawer /> : null }
+          </Menu>
       </div>
     )
   }
 }
+// { drawerOpen === true ? <NavDrawer /> : null }
 
 const mapStateToProps = ({ users: { loggedIn, user, drawerOpen } }) => ({ loggedIn, user, drawerOpen })
 

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { FormControl, List, ListItem, ListItemText, FormLabel, Input } from '@material-ui/core'
+import { Segment, Label, Input, List } from 'semantic-ui-react'
 import { addIngredientToRecipe, fetchIngredients } from '../actions'
 
 class IngredientSelector extends Component {
@@ -30,10 +30,10 @@ class IngredientSelector extends Component {
 
     return (
       <div style={{display: 'flex', margin:'5%'}}>
-        <FormControl style={{width:'90%', position: 'relative'}}>
-          <FormLabel>Search to Filter Ingredients</FormLabel>
-          <Input type="text" onChange={this.handleChange('input')} value={input} id="ingredient-search" style={{ margin: 8 }} fullWidth />
-        </FormControl>
+      <Segment style={{width:'90%', position: 'relative'}}>
+      <Label attached='top'>Search to Filter Ingredients</Label>
+      <Input loading icon='user' placeholder='Search' onChange={this.handleChange('input')} value={input} />
+      </Segment>
       </div>
     )
   }
@@ -45,15 +45,17 @@ class IngredientSelector extends Component {
 
     return (
       <div style={{display: 'flex', margin:'5%'}}>
-        <List>
-          {filteredIngredients.map(ingred => {
-            return (
-              <ListItem button onClick={() => this.selectIngredient(ingred)} key={ingred.ingredient_name}>
-                <ListItemText primary={ingred.ingredient_name} />
-              </ListItem>
-            )
-          })}
-        </List>
+      <List divided relaxed>
+      {filteredIngredients.map(ingred => {
+        return (
+          <List.Item onClick={() => this.selectIngredient(ingred)} key={ingred.ingredient_name}>
+          <List.Content>
+          <List.Description>{ingred.ingredient_name}</List.Description>
+          </List.Content>
+          </List.Item>
+        )
+      })}
+      </List>
       </div>
     )
   }
@@ -65,8 +67,8 @@ class IngredientSelector extends Component {
     if (this.props.ingredientChoices.length > 0) {
       return (
         <div>
-          {this.ingredientInput()}
-          {input !== '' ? this.filteredList() : null}
+        {this.ingredientInput()}
+        {input !== '' ? this.filteredList() : null}
         </div>
       )
     } else {
