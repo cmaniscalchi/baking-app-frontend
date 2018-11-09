@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Segment, Label, Input, List } from 'semantic-ui-react'
-import { addIngredientToRecipe, fetchIngredients } from '../actions'
+import { addIngredientToRecipe, fetchIngredients, openModal, selectIngredient } from '../actions'
 
 class IngredientSelector extends Component {
 
@@ -20,8 +20,10 @@ class IngredientSelector extends Component {
     this.setState({ [input]: event.target.value })
   }
 
-  selectIngredient = ingredient => {
-    this.props.addIngredientToRecipe(ingredient)
+  handleSelect = ingredient => {
+    let { openModal, selectIngredient } = this.props
+    selectIngredient(ingredient)
+    openModal()
     this.setState({ input: '' })
   }
 
@@ -33,6 +35,7 @@ class IngredientSelector extends Component {
       <Segment style={{width:'100%'}}>
       <Label attached='top' style={{width:'100%', position: 'relative'}}>Search to Add Recipe Ingredients</Label>
       <Input placeholder='Search' onChange={this.handleChange('input')} value={input} style={{width:'100%', position: 'relative'}}/>
+      {input !== '' ? this.filteredList() : null}
       </Segment>
       </div>
     )
@@ -48,7 +51,7 @@ class IngredientSelector extends Component {
       <List divided relaxed style={{width:'100%'}}>
       {filteredIngredients.map(ingred => {
         return (
-          <List.Item onClick={() => this.selectIngredient(ingred)} key={ingred.ingredient_name}>
+          <List.Item onClick={() => this.handleSelect(ingred)} key={ingred.ingredient_name}>
           <List.Content>
           <List.Description>{ingred.ingredient_name}</List.Description>
           </List.Content>
@@ -62,13 +65,10 @@ class IngredientSelector extends Component {
 
   render() {
     // console.log("IngredientSelector:", this.props, this.state)
-    let { input } = this.state
-
     if (this.props.ingredientChoices.length > 0) {
       return (
         <div>
         {this.ingredientInput()}
-        {input !== '' ? this.filteredList() : null}
         </div>
       )
     } else {
@@ -79,4 +79,4 @@ class IngredientSelector extends Component {
 
 const mapStateToProps = ({ ingredients: { ingredientChoices }}) => ({ ingredientChoices })
 
-export default connect(mapStateToProps, { addIngredientToRecipe, fetchIngredients })(IngredientSelector)
+export default connect(mapStateToProps, { addIngredientToRecipe, fetchIngredients, openModal, selectIngredient })(IngredientSelector)
