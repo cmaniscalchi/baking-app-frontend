@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { List, Button } from 'semantic-ui-react'
+import { Table } from 'semantic-ui-react'
 import { removeIngredients } from '../actions'
 
 class RecipeIngredient extends Component {
@@ -32,16 +32,17 @@ class RecipeIngredient extends Component {
     console.log("RecipeIngredient:", this.props, this.state)
     if (this.props.ingredient) {
       let { ingredient } = this.props
-      let { ingredient_name } = this.props.ingredient
+      let { ingredient_name, ingredient_unit, ingredient_volume } = this.props.ingredient
       let { checked } = this.state
 
       return (
-        <div>
-        <List.Item key={ingredient_name} onClick={this.handleToggle(ingredient)}>
-        {ingredient_name}
-        </List.Item>
-        {checked.length > 0 ? <Button onClick={this.handleIngredientRemove}>Remove Checked Ingredients</Button> : null}
-        </div>
+        <Table.Row onClick={this.handleToggle(ingredient)}>
+        <Table.Cell>{ingredient_name}</Table.Cell>
+        <Table.Cell>{ingredient_volume}</Table.Cell>
+        <Table.Cell textAlign='right'>{ingredient_unit}</Table.Cell>
+        </Table.Row>
+
+
       )
     } else {
       return null
