@@ -1,4 +1,8 @@
-import { SET_INGREDIENT_CHOICES } from '../types'
+import { SELECT_INGREDIENT, SET_INGREDIENT_CHOICES, UNSELECT_INGREDIENT } from '../types'
+
+export const selectIngredient = ingredient => ({ type: SELECT_INGREDIENT, payload: ingredient })
+
+export const unselectIngredient = () => ({ type: UNSELECT_INGREDIENT })
 
 // const BASE_URL = `${process.env.REACT_APP_API_ENDPOINT}/api/v1/`
 const BASE_URL = `http://localhost:3000/api/v1/`

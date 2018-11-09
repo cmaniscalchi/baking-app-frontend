@@ -1,4 +1,4 @@
-import { AUTHENTICATING_USER, FAILED_LOGIN, REMOVE_CURRENT_USER, SET_CURRENT_USER, OPEN_SIDEBAR, CLOSE_SIDEBAR } from '../types'
+import { AUTHENTICATING_USER, FAILED_LOGIN, REMOVE_CURRENT_USER, SET_CURRENT_USER, OPEN_SIDEBAR, CLOSE_SIDEBAR, OPEN_MODAL, CLOSE_MODAL } from '../types'
 
 export const authenticatingUser = () => ({ type: AUTHENTICATING_USER })
 
@@ -9,6 +9,10 @@ export const setCurrentUser = userData => ({ type: SET_CURRENT_USER, payload: us
 export const openSidebar = () => ({ type: OPEN_SIDEBAR })
 
 export const closeSidebar = () => ({ type: CLOSE_SIDEBAR })
+
+export const openModal = () => ({ type: OPEN_MODAL })
+
+export const closeModal = () => ({ type: CLOSE_MODAL })
 
 // const BASE_URL = `${process.env.REACT_APP_API_ENDPOINT}/api/v1/`
 const BASE_URL = `http://localhost:3000/api/v1/`

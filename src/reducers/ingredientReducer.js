@@ -1,7 +1,8 @@
-import { SET_INGREDIENT_CHOICES } from '../types'
+import { SELECT_INGREDIENT, SET_INGREDIENT_CHOICES, UNSELECT_INGREDIENT } from '../types'
 
 const initialIngredientsState = {
-  ingredientChoices: []
+  ingredientChoices: [],
+  selectIngredient: null
 }
 
 export default function ingredientReducer(state = initialIngredientsState, action) {
@@ -9,6 +10,10 @@ export default function ingredientReducer(state = initialIngredientsState, actio
   switch (action.type) {
     case SET_INGREDIENT_CHOICES:
       return { ...state, ingredientChoices: action.payload }
+    case SELECT_INGREDIENT:
+      return { ...state, selectedIngredient: action.payload }
+    case UNSELECT_INGREDIENT:
+      return { ...state, selectedIngredient: null }
     default:
       return state
   }
