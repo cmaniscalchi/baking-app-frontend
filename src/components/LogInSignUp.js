@@ -7,21 +7,13 @@ import SignUpForm from './SignUpForm'
 
 class LogInSignUp extends Component {
 
-  // state = { value: 0 }
-  //
-  // handleChange = (value) => {
-  //   debugger
-  //   this.setState({ value })
-  // }
-
   render() {
     const panes = [
       { menuItem: 'Log In', render: () => <Tab.Pane attached={false}><LogInForm /></Tab.Pane> },
       { menuItem: 'Sign Up', render: () => <Tab.Pane attached={false}><SignUpForm /></Tab.Pane> },
     ]
 
-    console.log("LogInSignUp:", this.props)
-    // let { value } = this.state
+    // console.log("LogInSignUp:", this.props)
     if (this.props.loggedIn) {
       return <Redirect to="/" />
     } else {
@@ -33,7 +25,6 @@ class LogInSignUp extends Component {
     }
   }
 }
-// {value === 0 ? <LogInForm /> : null}
 
 const mapStateToProps = ({ users: { loggedIn } }) => ({ loggedIn })
 

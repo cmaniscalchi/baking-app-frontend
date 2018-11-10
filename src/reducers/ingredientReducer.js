@@ -2,7 +2,7 @@ import { SELECT_INGREDIENT, SET_INGREDIENT_CHOICES, UNSELECT_INGREDIENT } from '
 
 const initialIngredientsState = {
   ingredientChoices: [],
-  selectIngredient: null
+  selectedIngredient: null
 }
 
 export default function ingredientReducer(state = initialIngredientsState, action) {
