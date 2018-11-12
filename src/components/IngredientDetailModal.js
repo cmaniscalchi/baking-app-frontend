@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 import { connect } from 'react-redux'
-import { Button, Header, Modal, Icon, Dropdown } from 'semantic-ui-react'
+import { Button, Header, Modal, Icon, Dropdown, Grid } from 'semantic-ui-react'
 import { addIngredientToRecipe, closeModal, unselectIngredient } from '../actions'
 
 class IngredientDetailModal extends Component {
@@ -20,6 +20,7 @@ class IngredientDetailModal extends Component {
   handleSubmit = () => {
     let { addIngredientToRecipe, closeModal, selectedIngredient } = this.props
     let { integer, fraction, unit } = this.state
+
     if (integer !== '' && unit !== '') {
       if (fraction !== '') {
         let split = fraction.split("/")
@@ -61,24 +62,32 @@ class IngredientDetailModal extends Component {
       return (
         <div>
         <Modal open={modalOpen} onClose={this.handleModalClose} closeIcon >
-        <Modal.Header className='modal'>{selectedIngredient.ingredient_name}</Modal.Header>
-        <Modal.Content>
-        <Modal.Description>
-        <Header as='h3'>Select Quantity and Unit Measure:</Header>
-        </Modal.Description>
-        <br />
-        <Dropdown placeholder='Select Integer' onChange={this.handleIntegerSelect} search selection options={mappedIntegers} />
-        <Dropdown placeholder='Select Fraction' onChange={this.handleFractionSelect} search selection options={mappedFractions} />
-        <Dropdown placeholder='Select Unit' onChange={this.handleUnitSelect} search selection options={mappedUnits} />
-        </Modal.Content>
-        <Modal.Actions>
-        <Button onClick={this.handleModalClose}>
-        <Icon name='remove' /> Cancel
-        </Button>
-        <Button onClick={this.handleSubmit}>
-        <Icon name='checkmark' /> Save Ingredient
-        </Button>
-        </Modal.Actions>
+          <Modal.Header className='modal'>{selectedIngredient.ingredient_name}</Modal.Header>
+          <Modal.Content>
+            <Modal.Description>
+              <Header as='h3'>Select Quantity and Unit Measure:</Header>
+            </Modal.Description>
+            <br />
+            <Grid columns={3} doubling stackable>
+              <Grid.Column>
+                <Dropdown placeholder='Select Integer' onChange={this.handleIntegerSelect} search selection options={mappedIntegers} />
+              </Grid.Column>
+              <Grid.Column>
+                <Dropdown placeholder='Select Fraction' onChange={this.handleFractionSelect} search selection options={mappedFractions} />
+              </Grid.Column>
+              <Grid.Column>
+                <Dropdown placeholder='Select Unit' onChange={this.handleUnitSelect} search selection options={mappedUnits} />
+              </Grid.Column>
+            </Grid>
+          </Modal.Content>
+          <Modal.Actions>
+            <Button onClick={this.handleModalClose}>
+              <Icon name='remove' /> Cancel
+            </Button>
+            <Button onClick={this.handleSubmit}>
+              <Icon name='checkmark' /> Save Ingredient
+            </Button>
+          </Modal.Actions>
         </Modal>
         </div>
       )
