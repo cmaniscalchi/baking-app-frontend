@@ -38,11 +38,9 @@ class RecipeIngredient extends Component {
       return (
         <Table.Row onClick={this.handleToggle(ingredient)}>
         <Table.Cell>{ingredient_name}</Table.Cell>
-        <Table.Cell>{ingredient_volume}</Table.Cell>
+        <Table.Cell>{ingredient_volume.text}</Table.Cell>
         <Table.Cell textAlign='right'>{ingredient_unit}</Table.Cell>
         </Table.Row>
-
-
       )
     } else {
       return null
