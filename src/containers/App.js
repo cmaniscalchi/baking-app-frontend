@@ -13,12 +13,7 @@ const App = ({ sidebarOpen, closeSidebar }) => {
   return (
     <Fragment>
     <NavBar />
-    <div style={{
-      minHeight: window.innerHeight,
-      minWidth: window.innerWidth,
-      height: "100%",
-      width: "100%"
-    }}>
+
     <Sidebar.Pushable as={Segment} style={{ minHeight: window.innerHeight, height: "100%"}}>
     <LeftSidebar />
     <Sidebar.Pusher>
@@ -32,7 +27,7 @@ const App = ({ sidebarOpen, closeSidebar }) => {
     </div>
     </Sidebar.Pusher>
     </Sidebar.Pushable>
-    </div>
+
     </Fragment>
   )
 }
