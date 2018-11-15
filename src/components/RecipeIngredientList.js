@@ -9,13 +9,16 @@ const RecipeIngredientList = ({ recipeIngredients }) => {
   if (recipeIngredients.length > 0) {
 
     return (
-      <Segment>
-      <Table unstackable>
+      <div style={{display: 'flex', margin:'5%', width:'90%', position: 'relative'}}>
+      <Segment style={{width:'100%'}}>
+      <Table>
       <Table.Header>
-      <Table.Row>
-      <Table.HeaderCell>Ingredient</Table.HeaderCell>
-      <Table.HeaderCell>Quantity</Table.HeaderCell>
-      <Table.HeaderCell textAlign='right'>Unit</Table.HeaderCell>
+      <Table.Row style={{textAlign:'center'}}>
+      <Table.HeaderCell style={{width:'5%'}}></Table.HeaderCell>
+      <Table.HeaderCell style={{width:'5%'}}></Table.HeaderCell>
+      <Table.HeaderCell style={{width:'50%'}}>Ingredient</Table.HeaderCell>
+      <Table.HeaderCell style={{width:'20%'}}>Quantity</Table.HeaderCell>
+      <Table.HeaderCell style={{width:'20%'}}>Unit</Table.HeaderCell>
       </Table.Row>
       </Table.Header>
       <Table.Body>
@@ -23,6 +26,7 @@ const RecipeIngredientList = ({ recipeIngredients }) => {
       </Table.Body>
       </Table>
       </Segment>
+      </div>
 
     )
   } else {

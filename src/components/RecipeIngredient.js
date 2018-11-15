@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Table } from 'semantic-ui-react'
+import { Table, Icon } from 'semantic-ui-react'
 import { removeIngredients } from '../actions'
 
 class RecipeIngredient extends Component {
@@ -36,10 +36,12 @@ class RecipeIngredient extends Component {
       let { checked } = this.state
 
       return (
-        <Table.Row onClick={this.handleToggle(ingredient)}>
+        <Table.Row style={{textAlign: 'center'}} onClick={this.handleToggle(ingredient)}>
+        <Table.Cell><Icon name='delete' /></Table.Cell>
+        <Table.Cell><Icon name='edit' /></Table.Cell>
         <Table.Cell>{ingredient_name}</Table.Cell>
         <Table.Cell>{ingredient_volume.text}</Table.Cell>
-        <Table.Cell textAlign='right'>{ingredient_unit}</Table.Cell>
+        <Table.Cell>{ingredient_unit}</Table.Cell>
         </Table.Row>
       )
     } else {

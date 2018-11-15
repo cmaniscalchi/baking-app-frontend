@@ -21,20 +21,28 @@ class IngredientDetailModal extends Component {
     let { addIngredientToRecipe, closeModal, selectedIngredient } = this.props
     let { integer, fraction, unit } = this.state
 
-    if (integer !== '' && unit !== '') {
-      if (fraction !== '') {
-        let split = fraction.split("/")
-        let float = split[0]/split[1]
-        let total = parseInt(integer) + float
+    //all three selections made
+    if (integer !== '' && fraction !== '' && unit !== '') {
+      let split = fraction.split("/")
+      let float = split[0]/split[1]
+      let total = parseInt(integer) + float
+
+      if (integer !== '0') {
         let quantity = { key: total, value: total, text: `${integer} ${fraction}` }
         addIngredientToRecipe(selectedIngredient.ingredient_name, quantity, unit)
       } else {
-        let quantity = { key: parseInt(integer), value: parseInt(integer), text: integer }
+        let quantity = { key: float, value: float, text: fraction }
         addIngredientToRecipe(selectedIngredient.ingredient_name, quantity, unit)
       }
-      this.setState({ integer: '', fraction: '', unit: '' })
-      closeModal()
+
+    } else if (integer !== '' && integer !== '0' && fraction === '' && unit !== '') {
+        let quantity = { key: parseInt(integer), value: parseInt(integer), text: integer }
+        addIngredientToRecipe(selectedIngredient.ingredient_name, quantity, unit)
+    } else {
+      return null
     }
+    this.setState({ integer: '', fraction: '', unit: '' })
+    closeModal()
   }
 
   handleModalClose = () => {
@@ -65,18 +73,27 @@ class IngredientDetailModal extends Component {
           <Modal.Header className='modal'>{selectedIngredient.ingredient_name}</Modal.Header>
           <Modal.Content>
             <Modal.Description>
-              <Header as='h3'>Select Quantity and Unit Measure:</Header>
+            <Header as='h2'>
+            <Icon name='food' />
+            <Header.Content>
+            Select Amount
+              <Header.Subheader>Example: 1 1/2 Cups</Header.Subheader>
+            </Header.Content>
+            </Header>
             </Modal.Description>
             <br />
             <Grid columns={3} doubling stackable>
-              <Grid.Column>
-                <Dropdown placeholder='Select Integer' onChange={this.handleIntegerSelect} search selection options={mappedIntegers} />
+            <Grid.Column>
+              <Header size='medium'>Quantity: Whole Number</Header>
+              <Dropdown placeholder='Select Whole Number' onChange={this.handleIntegerSelect} search selection options={mappedIntegers} />
               </Grid.Column>
               <Grid.Column>
-                <Dropdown placeholder='Select Fraction' onChange={this.handleFractionSelect} search selection options={mappedFractions} />
+              <Header size='medium'>Quantity: Fraction (Optional)</Header>
+              <Dropdown placeholder='Select Fraction' onChange={this.handleFractionSelect} search selection options={mappedFractions} />
               </Grid.Column>
               <Grid.Column>
-                <Dropdown placeholder='Select Unit' onChange={this.handleUnitSelect} search selection options={mappedUnits} />
+              <Header size='medium'>Measurement Unit</Header>
+              <Dropdown placeholder='Select Unit' onChange={this.handleUnitSelect} search selection options={mappedUnits} />
               </Grid.Column>
             </Grid>
           </Modal.Content>
