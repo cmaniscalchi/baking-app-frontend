@@ -1,11 +1,16 @@
 import React, { Component } from "react"
 import { connect } from 'react-redux'
 import { Button, Header, Modal, Icon, Dropdown, Grid } from 'semantic-ui-react'
-import { addIngredientToRecipe, closeModal, unselectIngredient } from '../actions'
+import { addIngredientToRecipe, closeModal, editRecipeIngredient, unselectIngredient } from '../actions'
 
 class IngredientModal extends Component {
 
   state = { integer: '', fraction: '', unit: '' }
+
+  validateForm = () => {
+    let { integer, unit } = this.state
+    return integer.length > 0 && unit.length > 0
+  }
 
   handleIntegerSelect = event => {
     this.setState({ ...this.state, integer: event.target.innerText })
@@ -24,38 +29,39 @@ class IngredientModal extends Component {
     closeModal()
   }
 
-  handleSubmit = () => {
+  ingredientActions = (ingredient_name, quantity, unit) => {
+    let { addIngredientToRecipe, editRecipeIngredient, recipeIngredients, selectedIngredient } = this.props
 
-    let { addIngredientToRecipe, recipeIngredients, selectedIngredient } = this.props
+    if (recipeIngredients.some(ingredient => ingredient.ingredient_name === selectedIngredient.ingredient_name )) {
+      editRecipeIngredient(ingredient_name, quantity, unit)
+    } else {
+      addIngredientToRecipe(ingredient_name, quantity, unit)
+    }
+  }
+
+  handleSubmit = () => {
+    let { selectedIngredient: { ingredient_name } } = this.props
     let { integer, fraction, unit } = this.state
 
-    // add an ingredient only if it doesn't exist yet
-    if (recipeIngredients.length === 0 || recipeIngredients.length === recipeIngredients.filter(ingredient => ingredient.ingredient_name !== selectedIngredient.ingredient_name).length) {
+    if (fraction !== '') {
+      let split = fraction.split("/")
+      let float = split[0]/split[1]
+      let total = parseInt(integer) + float
 
-      //handle submit when all three selections are made
-      if (integer !== '' && fraction !== '' && unit !== '') {
-        let split = fraction.split("/")
-        let float = split[0]/split[1]
-        let total = parseInt(integer) + float
-
-        if (integer !== '0') {
-          let quantity = { key: total, value: total, text: `${integer} ${fraction}` }
-          addIngredientToRecipe(selectedIngredient.ingredient_name, quantity, unit)
-        } else {
-          let quantity = { key: float, value: float, text: fraction }
-          addIngredientToRecipe(selectedIngredient.ingredient_name, quantity, unit)
-        }
-
-      } else if (integer !== '' && integer !== '0' && fraction === '' && unit !== '') {
-        let quantity = { key: parseInt(integer), value: parseInt(integer), text: integer }
-        addIngredientToRecipe(selectedIngredient.ingredient_name, quantity, unit)
+      if (integer !== '0') {
+        let quantity = { key: total, value: total, text: `${integer} ${fraction}` }
+        this.ingredientActions(ingredient_name, quantity, unit)
       } else {
-        return null
+        let quantity = { key: float, value: float, text: fraction }
+        this.ingredientActions(ingredient_name, quantity, unit)
       }
-      this.handleModalClose()
+    } else if (integer !== '0' && fraction === '') {
+      let quantity = { key: parseInt(integer), value: parseInt(integer), text: integer }
+      this.ingredientActions(ingredient_name, quantity, unit)
     } else {
       return null
     }
+    this.handleModalClose()
   }
 
   modalGrid = () => {
@@ -112,7 +118,7 @@ class IngredientModal extends Component {
         <Button onClick={this.handleModalClose}>
         <Icon name='remove' /> Cancel
         </Button>
-        <Button onClick={this.handleSubmit}>
+        <Button disabled={!this.validateForm()} onClick={this.handleSubmit}>
         <Icon name='checkmark' /> Save Ingredient
         </Button>
         </Modal.Actions>
@@ -130,4 +136,4 @@ class IngredientModal extends Component {
 
 const mapStateToProps = ({ users: { modalOpen }, recipes: { recipeIngredients }, ingredients: { selectedIngredient } }) => ({ modalOpen, recipeIngredients, selectedIngredient })
 
-export default connect(mapStateToProps, { closeModal, addIngredientToRecipe, unselectIngredient })(IngredientModal)
+export default connect(mapStateToProps, { closeModal, addIngredientToRecipe, editRecipeIngredient, unselectIngredient })(IngredientModal)
