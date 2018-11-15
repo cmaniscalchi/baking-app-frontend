@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import RecipeIngredient from './RecipeIngredient'
-import { Form, Radio, Button, Segment, Table } from 'semantic-ui-react'
+import { Grid, Header, Radio, Button, Segment, Table } from 'semantic-ui-react'
 
 class RecipeIngredientList extends Component {
 
@@ -11,14 +11,17 @@ class RecipeIngredientList extends Component {
 
   conversionRadios = () => {
     return (
-      <Form>
-      <Form.Field>
+      <Grid columns={3} doubling stackable style={{textAlign:'center'}}>
+      <Grid.Column>
+      <Header size='medium'>Select unit for conversion:</Header>
+      </Grid.Column>
+      <Grid.Column>
       <Radio label='Grams' value='grams' checked={this.state.value === 'grams'} onChange={this.handleChange} />
-      </Form.Field>
-      <Form.Field>
+      </Grid.Column>
+      <Grid.Column>
       <Radio label='Ounces' value='ounces' checked={this.state.value === 'ounces'} onChange={this.handleChange} />
-      </Form.Field>
-      </Form>
+      </Grid.Column>
+      </Grid>
     )
   }
 
@@ -44,7 +47,8 @@ class RecipeIngredientList extends Component {
         </Table.Body>
         </Table>
         {this.conversionRadios()}
-        <Button type="submit">Convert Recipe</Button>
+        <br />
+        <Button fluid type="submit">Convert Recipe</Button>
         </Segment>
         </div>
 
