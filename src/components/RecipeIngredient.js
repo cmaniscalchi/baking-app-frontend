@@ -1,55 +1,34 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
 import { Table, Icon } from 'semantic-ui-react'
-import { removeIngredients } from '../actions'
+import { openModal, removeIngredient, selectIngredient } from '../actions'
 
-class RecipeIngredient extends Component {
+const RecipeIngredient = ({ ingredient, openModal, recipeIngredients, removeIngredient, selectIngredient }) => {
 
-  state = { checked: [] }
-
-  handleToggle = ingredient => () => {
-    let { checked } = this.state
-    let currentIndex = checked.indexOf(ingredient)
-    let newChecked = [...checked]
-
-    if (currentIndex === -1) {
-      newChecked.push(ingredient)
-    } else {
-      newChecked.splice(currentIndex, 1)
-    }
-
-    this.setState({ checked: newChecked })
+  const handleSelect = ingredient => {
+    selectIngredient(ingredient)
+    openModal()
   }
 
-  handleIngredientRemove = () => {
-    let { removeIngredients } = this.props
-    let { checked } = this.state
-    removeIngredients(checked)
-    this.setState({ checked: [] })
-  }
 
-  render() {
-    console.log("RecipeIngredient:", this.props, this.state)
-    if (this.props.ingredient) {
-      let { ingredient } = this.props
-      let { ingredient_name, ingredient_unit, ingredient_volume } = this.props.ingredient
-      let { checked } = this.state
+  // console.log("RecipeIngredient:", ingredient, recipeIngredients, removeIngredient )
+  if (ingredient) {
+    let { ingredient_name, ingredient_unit, ingredient_volume } = ingredient
 
-      return (
-        <Table.Row style={{textAlign: 'center'}} onClick={this.handleToggle(ingredient)}>
-        <Table.Cell><Icon name='delete' /></Table.Cell>
-        <Table.Cell><Icon name='edit' /></Table.Cell>
-        <Table.Cell>{ingredient_name}</Table.Cell>
-        <Table.Cell>{ingredient_volume.text}</Table.Cell>
-        <Table.Cell>{ingredient_unit}</Table.Cell>
-        </Table.Row>
-      )
-    } else {
-      return null
-    }
+    return (
+      <Table.Row style={{textAlign: 'center'}}>
+      <Table.Cell onClick={() => removeIngredient(ingredient)}><Icon name='delete' /></Table.Cell>
+      <Table.Cell onClick={() => handleSelect(ingredient)}><Icon name='edit' /></Table.Cell>
+      <Table.Cell>{ingredient_name}</Table.Cell>
+      <Table.Cell>{ingredient_volume.text}</Table.Cell>
+      <Table.Cell>{ingredient_unit}</Table.Cell>
+      </Table.Row>
+    )
+  } else {
+    return null
   }
 }
 
-// const mapStateToProps = ({ recipes: { recipeIngredients }}) => ({ recipeIngredients })
+const mapStateToProps = ({ recipes: { recipeIngredients } }) => ({ recipeIngredients })
 
-export default connect(null, { removeIngredients })(RecipeIngredient)
+export default connect(mapStateToProps, { openModal, removeIngredient, selectIngredient })(RecipeIngredient)
