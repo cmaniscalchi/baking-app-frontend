@@ -33,9 +33,9 @@ class IngredientModal extends Component {
     let { addIngredientToRecipe, editRecipeIngredient, recipeIngredients, selectedIngredient } = this.props
 
     if (recipeIngredients.some(ingredient => ingredient.ingredient_name === selectedIngredient.ingredient_name )) {
-      editRecipeIngredient(ingredient_name, quantity, unit)
+      editRecipeIngredient(quantity, unit, selectedIngredient)
     } else {
-      addIngredientToRecipe(ingredient_name, quantity, unit)
+      addIngredientToRecipe(quantity, unit, selectedIngredient)
     }
   }
 
@@ -65,7 +65,7 @@ class IngredientModal extends Component {
   }
 
   modalGrid = () => {
-    let units = ['Teaspoons', 'Tablespoons', 'Ounces', 'Cups', 'Pints', 'Quarts', 'Gallons']
+    let units = ['Teaspoons', 'Tablespoons', 'Fluid Ounces', 'Cups', 'Pints', 'Quarts', 'Gallons']
     let mappedUnits = units.map(unit => ({ key: unit, value: unit, text: unit }))
 
     let integers = [...Array(11).keys()]

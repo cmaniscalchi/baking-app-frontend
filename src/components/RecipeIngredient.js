@@ -11,7 +11,7 @@ const RecipeIngredient = ({ ingredient, openModal, recipeIngredients, removeIngr
   }
 
 
-  // console.log("RecipeIngredient:", ingredient, recipeIngredients, removeIngredient )
+  console.log("RecipeIngredient:", ingredient, recipeIngredients, removeIngredient )
   if (ingredient) {
     let { ingredient_name, ingredient_unit, ingredient_volume } = ingredient
 
@@ -21,7 +21,7 @@ const RecipeIngredient = ({ ingredient, openModal, recipeIngredients, removeIngr
       <Table.Cell onClick={() => handleSelect(ingredient)}><Icon name='edit' /></Table.Cell>
       <Table.Cell>{ingredient_name}</Table.Cell>
       <Table.Cell>{ingredient_volume.text}</Table.Cell>
-      <Table.Cell>{ingredient_unit}</Table.Cell>
+      <Table.Cell>{ingredient_volume.value > 1 ? ingredient_unit.name.plural : ingredient_unit.name.singular}</Table.Cell>
       </Table.Row>
     )
   } else {
