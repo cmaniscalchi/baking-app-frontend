@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import RecipeIngredient from './RecipeIngredient'
 import { Grid, Header, Radio, Button, Segment, Table } from 'semantic-ui-react'
+import { setConversionUnit } from '../actions'
 
 class RecipeIngredientList extends Component {
 
@@ -10,8 +11,10 @@ class RecipeIngredientList extends Component {
   handleChange = (event, { value }) => this.setState({ value })
 
   handleConversion = () => {
+    let { value } = this.state
+    let { setConversionUnit } = this.props
     console.log("handling conversion")
-    return null
+    setConversionUnit(value)
   }
 
   validateSelection = () => {
@@ -61,7 +64,6 @@ class RecipeIngredientList extends Component {
         <Button fluid disabled={!this.validateSelection()} onClick={this.handleConversion}>Convert Recipe</Button>
         </Segment>
         </div>
-
       )
     } else {
       return null
@@ -72,4 +74,4 @@ class RecipeIngredientList extends Component {
 
 const mapStateToProps = ({ recipes: { recipeIngredients }}) => ({ recipeIngredients })
 
-export default connect(mapStateToProps)(RecipeIngredientList)
+export default connect(mapStateToProps, { setConversionUnit })(RecipeIngredientList)

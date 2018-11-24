@@ -1,9 +1,10 @@
-import { ADD_INGREDIENT, REPLACE_INGREDIENT, REMOVE_INGREDIENT } from '../types'
+import { ADD_INGREDIENT, REPLACE_INGREDIENT, REMOVE_INGREDIENT, CONVERT_INGREDIENTS } from '../types'
 import { volumeMeasures } from '../volumeMeasures.js'
 
 const initialRecipesState = {
   recipeIngredients: [],
   recipeMultiplier: null,
+  conversionUnit: null,
   volumeMeasures: volumeMeasures
 }
 
@@ -34,7 +35,6 @@ export default function recipeReducer(state = initialRecipesState, action) {
        })
       .concat(state.recipeIngredients.slice(ingredientIndex + 1))
     }
-
   case REMOVE_INGREDIENT:
     if (state.recipeIngredients.length === 1) {
       return { ...state, recipeIngredients: [] }
@@ -42,6 +42,9 @@ export default function recipeReducer(state = initialRecipesState, action) {
       let filteredIngredients = state.recipeIngredients.filter(ingredient => payload !== ingredient)
       return { ...state, recipeIngredients: filteredIngredients }
     }
+  case CONVERT_INGREDIENTS:
+  debugger
+    return { ...state, conversionUnit: payload }
   default:
     return state
   }
