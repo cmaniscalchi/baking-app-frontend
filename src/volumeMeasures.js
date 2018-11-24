@@ -1,31 +1,31 @@
 export const volumeMeasures = {
 
   Teaspoons: {
-    ratioToFlOz: 1/6,
+    ratioToCups: 1/48,
     name: { singular: 'Teaspoon', plural: 'Teaspoons' }
   },
   Tablespoons: {
-    ratioToFlOz: 1/2,
+    ratioToCups: 1/16,
     name: { singular: 'Tablespoon', plural: 'Tablespoons' },
   },
   'Fluid Ounces': {
-    ratioToFlOz: 1,
+    ratioToCups: 1/8,
     name: { singular: 'Fluid Ounce', plural: 'Fluid Ounces' }
   },
   Cups: {
-    ratioToFlOz: 8,
+    ratioToCups: 1,
     name: { singular: 'Cup', plural: 'Cups' }
   },
   Pints: {
-    ratioToFlOz: 16,
+    ratioToCups: 2,
     name: { singular: 'Pint', plural: 'Pints' }
   },
   Quarts: {
-    ratioToFlOz: 32,
+    ratioToCups: 4,
     name: { singular: 'Quart', plural: 'Quarts' }
   },
   Gallons: {
-    ratioToFlOz: 64,
+    ratioToCups: 16,
     name: { singular: 'Gallon', plural: 'Gallons' }
   }
 }

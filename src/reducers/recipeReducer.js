@@ -13,12 +13,24 @@ export default function recipeReducer(state = initialRecipesState, action) {
   switch (action.type) {
   case ADD_INGREDIENT:
     return { ...state, recipeIngredients: state.recipeIngredients
-      .concat({ ingredient_name: payload[2].ingredient_name, ingredient_volume: payload[0], ingredient_unit: state.volumeMeasures[payload[1]] })
+      .concat({
+        ingredient_name: payload[2].ingredient_name,
+        ingredient_volume: payload[0],
+        ingredient_unit: state.volumeMeasures[payload[1]],
+        ingredient_grams: Math.round(state.volumeMeasures[payload[1]].ratioToCups * payload[2].ingredient_grams * payload[0].value),
+        ingredient_ounces: state.volumeMeasures[payload[1]].ratioToCups * payload[2].ingredient_ounces * payload[0].value
+      })
     }
   case REPLACE_INGREDIENT:
   let ingredientIndex = state.recipeIngredients.findIndex(ingredient => ingredient.ingredient_name === payload[2].ingredient_name)
     return { ...state, recipeIngredients: state.recipeIngredients.slice(0, ingredientIndex)
-      .concat({ ingredient_name: payload[2].ingredient_name, ingredient_volume: payload[0], ingredient_unit: state.volumeMeasures[payload[1]] })
+      .concat({
+        ingredient_name: payload[2].ingredient_name,
+        ingredient_volume: payload[0],
+        ingredient_unit: state.volumeMeasures[payload[1]],
+        ingredient_grams: Math.round(state.volumeMeasures[payload[1]].ratioToCups * payload[2].ingredient_grams * payload[0].value),
+        ingredient_ounces: state.volumeMeasures[payload[1]].ratioToCups * payload[2].ingredient_ounces * payload[0].value
+       })
       .concat(state.recipeIngredients.slice(ingredientIndex + 1))
     }
 
