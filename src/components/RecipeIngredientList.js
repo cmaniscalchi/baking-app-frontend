@@ -16,24 +16,36 @@ class RecipeIngredientList extends Component {
     setConversionUnit(value)
   }
 
-  validateSelection = () => {
+  validateRadio = () => {
+    let { conversionUnit } = this.props
     let { value } = this.state
-    return value === 'ounces' || value === 'grams'
+    return value !== conversionUnit
   }
 
   conversionRadios = () => {
+    let { conversionUnit } = this.props
+    let grams = () => <Radio label='Grams' value='grams' checked={this.state.value === 'grams'} onChange={this.handleChange} />
+    let disabledGrams = () => <Radio disabled label='Grams' value='grams' checked={this.state.value === 'grams'} onChange={this.handleChange} />
+    let ounces = () => <Radio label='Ounces' value='ounces' checked={this.state.value === 'ounces'} onChange={this.handleChange} />
+    let disabledOunces = () => <Radio disabled label='Ounces' value='ounces' checked={this.state.value === 'ounces'} onChange={this.handleChange} />
+    let volume = () => <Radio label='Volume' value='volume' checked={this.state.value === 'volume'} onChange={this.handleChange} />
+    let disabledVolume = () => <Radio disabled label='Volume' value='volume' checked={this.state.value === 'volume'} onChange={this.handleChange} />
+
     return (
+      <div>
+      <Header size='medium' style={{textAlign:'center'}}>Select Unit for Conversion:</Header>
       <Grid columns={3} doubling stackable style={{textAlign:'center'}}>
       <Grid.Column>
-      <Header size='medium'>Select unit for conversion:</Header>
+      {conversionUnit === 'grams' ? disabledGrams() : grams()}
       </Grid.Column>
       <Grid.Column>
-      <Radio label='Grams' value='grams' checked={this.state.value === 'grams'} onChange={this.handleChange} />
+      {conversionUnit === 'ounces' ? disabledOunces() : ounces()}
       </Grid.Column>
       <Grid.Column>
-      <Radio label='Ounces' value='ounces' checked={this.state.value === 'ounces'} onChange={this.handleChange} />
+      {conversionUnit === 'volume' ? disabledVolume() : volume()}
       </Grid.Column>
       </Grid>
+      </div>
     )
   }
 
@@ -60,7 +72,7 @@ class RecipeIngredientList extends Component {
         </Table>
         {this.conversionRadios()}
         <br />
-        <Button fluid disabled={!this.validateSelection()} onClick={this.handleUnitSelect}>Convert Recipe</Button>
+        <Button fluid onClick={this.handleUnitSelect}>Convert Recipe</Button>
         </Segment>
         </div>
       )
@@ -71,6 +83,6 @@ class RecipeIngredientList extends Component {
 }
 
 
-const mapStateToProps = ({ recipes: { recipeIngredients }}) => ({ recipeIngredients })
+const mapStateToProps = ({ recipes: { conversionUnit, recipeIngredients }}) => ({ conversionUnit, recipeIngredients })
 
 export default connect(mapStateToProps, { setConversionUnit })(RecipeIngredientList)

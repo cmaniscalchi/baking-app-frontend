@@ -4,7 +4,7 @@ import { volumeMeasures } from '../volumeMeasures.js'
 const initialRecipesState = {
   recipeIngredients: [],
   recipeMultiplier: null,
-  conversionUnit: null,
+  conversionUnit: 'volume',
   volumeMeasures: volumeMeasures
 }
 

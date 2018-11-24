@@ -53,11 +53,11 @@ const RecipeIngredient = ({ conversionUnit, ingredient, openModal, recipeIngredi
 
   console.log("RecipeIngredient:", ingredient, recipeIngredients, removeIngredient )
   if (ingredient) {
-    if (!conversionUnit) {
+    if (conversionUnit === 'volume') {
       return ingredientVolumes()
-    } else if (conversionUnit === "ounces") {
+    } else if (conversionUnit === 'ounces') {
       return ingredientOunces()
-    } else if (conversionUnit === "grams") {
+    } else if (conversionUnit === 'grams') {
       return ingredientGrams()
     } else {
       return null
