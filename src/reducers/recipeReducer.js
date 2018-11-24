@@ -1,4 +1,4 @@
-import { ADD_INGREDIENT, REPLACE_INGREDIENT, REMOVE_INGREDIENT, CONVERT_INGREDIENTS } from '../types'
+import { ADD_INGREDIENT, REPLACE_INGREDIENT, REMOVE_INGREDIENT, SET_UNIT } from '../types'
 import { volumeMeasures } from '../volumeMeasures.js'
 
 const initialRecipesState = {
@@ -42,8 +42,7 @@ export default function recipeReducer(state = initialRecipesState, action) {
       let filteredIngredients = state.recipeIngredients.filter(ingredient => payload !== ingredient)
       return { ...state, recipeIngredients: filteredIngredients }
     }
-  case CONVERT_INGREDIENTS:
-  debugger
+  case SET_UNIT:
     return { ...state, conversionUnit: payload }
   default:
     return state

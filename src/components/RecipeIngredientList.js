@@ -10,10 +10,9 @@ class RecipeIngredientList extends Component {
 
   handleChange = (event, { value }) => this.setState({ value })
 
-  handleConversion = () => {
+  handleUnitSelect = () => {
     let { value } = this.state
     let { setConversionUnit } = this.props
-    console.log("handling conversion")
     setConversionUnit(value)
   }
 
@@ -61,7 +60,7 @@ class RecipeIngredientList extends Component {
         </Table>
         {this.conversionRadios()}
         <br />
-        <Button fluid disabled={!this.validateSelection()} onClick={this.handleConversion}>Convert Recipe</Button>
+        <Button fluid disabled={!this.validateSelection()} onClick={this.handleUnitSelect}>Convert Recipe</Button>
         </Segment>
         </div>
       )
