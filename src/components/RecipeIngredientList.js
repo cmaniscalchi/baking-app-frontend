@@ -9,6 +9,16 @@ class RecipeIngredientList extends Component {
 
   handleChange = (event, { value }) => this.setState({ value })
 
+  handleConversion = () => {
+    console.log("handling conversion")
+    return null
+  }
+
+  validateSelection = () => {
+    let { value } = this.state
+    return value === 'ounces' || value === 'grams'
+  }
+
   conversionRadios = () => {
     return (
       <Grid columns={3} doubling stackable style={{textAlign:'center'}}>
@@ -48,7 +58,7 @@ class RecipeIngredientList extends Component {
         </Table>
         {this.conversionRadios()}
         <br />
-        <Button fluid type="submit">Convert Recipe</Button>
+        <Button fluid disabled={!this.validateSelection()} onClick={this.handleConversion}>Convert Recipe</Button>
         </Segment>
         </div>
 

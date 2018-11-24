@@ -23,7 +23,8 @@ export default function recipeReducer(state = initialRecipesState, action) {
     }
   case REPLACE_INGREDIENT:
   let ingredientIndex = state.recipeIngredients.findIndex(ingredient => ingredient.ingredient_name === payload[2].ingredient_name)
-    return { ...state, recipeIngredients: state.recipeIngredients.slice(0, ingredientIndex)
+    return { ...state, recipeIngredients: state.recipeIngredients
+      .slice(0, ingredientIndex)
       .concat({
         ingredient_name: payload[2].ingredient_name,
         ingredient_volume: payload[0],
