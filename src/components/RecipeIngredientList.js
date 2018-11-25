@@ -8,18 +8,31 @@ class RecipeIngredientList extends Component {
 
   state = {}
 
+  componentDidMount() {
+    let { conversionUnit, setConversionUnit } = this.props
+    if (conversionUnit !== 'volume') {
+      setConversionUnit('volume')
+      this.setState({})
+    }
+  }
+
   handleChange = (event, { value }) => this.setState({ value })
 
   handleUnitSelect = () => {
     let { value } = this.state
     let { setConversionUnit } = this.props
     setConversionUnit(value)
+    this.setState({})
   }
 
-  validateRadio = () => {
+  handleRecipeSave = () => {
+    console.log("saving recipe")
+  }
+
+  validateConversion = () => {
     let { conversionUnit } = this.props
     let { value } = this.state
-    return value !== conversionUnit
+    return value && value !== conversionUnit
   }
 
   conversionRadios = () => {
@@ -72,7 +85,11 @@ class RecipeIngredientList extends Component {
         </Table>
         {this.conversionRadios()}
         <br />
-        <Button fluid onClick={this.handleUnitSelect}>Convert Recipe</Button>
+
+        <Button.Group attached='bottom'>
+        <Button disabled={!this.validateConversion()} onClick={this.handleUnitSelect}>Convert Recipe</Button>
+        <Button onClick={this.handleRecipeSave}>Save Recipe</Button>
+        </Button.Group>
         </Segment>
         </div>
       )

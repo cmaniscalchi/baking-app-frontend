@@ -25,7 +25,7 @@ const RecipeIngredient = ({ conversionUnit, ingredient, openModal, recipeIngredi
   }
 
   const ingredientGrams = () => {
-    let { ingredient_name, ingredient_unit, ingredient_grams } = ingredient
+    let { ingredient_name, ingredient_grams } = ingredient
     return (
       <Table.Row style={{textAlign: 'center'}}>
       <Table.Cell onClick={() => removeIngredient(ingredient)}><Icon name='delete' /></Table.Cell>
@@ -38,7 +38,7 @@ const RecipeIngredient = ({ conversionUnit, ingredient, openModal, recipeIngredi
   }
 
   const ingredientOunces = () => {
-    let { ingredient_name, ingredient_unit, ingredient_ounces } = ingredient
+    let { ingredient_name, ingredient_ounces } = ingredient
     return (
       <Table.Row style={{textAlign: 'center'}}>
       <Table.Cell onClick={() => removeIngredient(ingredient)}><Icon name='delete' /></Table.Cell>
@@ -50,8 +50,7 @@ const RecipeIngredient = ({ conversionUnit, ingredient, openModal, recipeIngredi
     )
   }
 
-
-  console.log("RecipeIngredient:", ingredient, recipeIngredients, removeIngredient )
+  // console.log("RecipeIngredient:", ingredient, recipeIngredients, removeIngredient )
   if (ingredient) {
     if (conversionUnit === 'volume') {
       return ingredientVolumes()

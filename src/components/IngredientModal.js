@@ -9,7 +9,7 @@ class IngredientModal extends Component {
 
   validateForm = () => {
     let { integer, unit } = this.state
-    return integer.length > 0 && unit.length > 0
+    return unit !== '' && integer !== ''
   }
 
   handleIntegerSelect = event => {
