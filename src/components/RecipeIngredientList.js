@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import RecipeIngredient from './RecipeIngredient'
 import { Grid, Header, Radio, Button, Segment, Table } from 'semantic-ui-react'
-import { setConversionUnit } from '../actions'
+import { saveRecipe, setConversionUnit } from '../actions'
 
 class RecipeIngredientList extends Component {
 
@@ -26,7 +26,8 @@ class RecipeIngredientList extends Component {
   }
 
   handleRecipeSave = () => {
-    console.log("saving recipe")
+    let { conversionUnit, id, recipeIngredients, saveRecipe } = this.props
+    saveRecipe(conversionUnit, id, recipeIngredients)
   }
 
   validateConversion = () => {
@@ -85,11 +86,10 @@ class RecipeIngredientList extends Component {
         </Table>
         {this.conversionRadios()}
         <br />
-
-        <Button.Group attached='bottom'>
+        <div style={{display: 'flex', justifyContent: 'space-around'}}>
         <Button disabled={!this.validateConversion()} onClick={this.handleUnitSelect}>Convert Recipe</Button>
         <Button onClick={this.handleRecipeSave}>Save Recipe</Button>
-        </Button.Group>
+        </div>
         </Segment>
         </div>
       )
@@ -100,6 +100,6 @@ class RecipeIngredientList extends Component {
 }
 
 
-const mapStateToProps = ({ recipes: { conversionUnit, recipeIngredients }}) => ({ conversionUnit, recipeIngredients })
+const mapStateToProps = ({ recipes: { conversionUnit, recipeIngredients }, users: { user: { id } } }) => ({ conversionUnit, id, recipeIngredients })
 
-export default connect(mapStateToProps, { setConversionUnit })(RecipeIngredientList)
+export default connect(mapStateToProps, { saveRecipe, setConversionUnit })(RecipeIngredientList)
