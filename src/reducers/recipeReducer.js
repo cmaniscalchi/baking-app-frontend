@@ -1,15 +1,16 @@
-import { ADD_INGREDIENT, REPLACE_INGREDIENT, REMOVE_INGREDIENT, SET_UNIT } from '../types'
+import { ADD_INGREDIENT, REPLACE_INGREDIENT, REMOVE_INGREDIENT, SET_UNIT, SAVE_RECIPE } from '../types'
 import { volumeMeasures } from '../volumeMeasures.js'
 
 const initialRecipesState = {
   recipeIngredients: [],
   recipeMultiplier: null,
   conversionUnit: 'volume',
-  volumeMeasures: volumeMeasures
+  volumeMeasures: volumeMeasures,
+  savedRecipes: []
 }
 
 export default function recipeReducer(state = initialRecipesState, action) {
-  // console.log("recipeReducer:", state, action)
+  console.log("recipeReducer:", state, action)
   let { payload } = action
   switch (action.type) {
   case ADD_INGREDIENT:
@@ -19,7 +20,8 @@ export default function recipeReducer(state = initialRecipesState, action) {
         ingredient_volume: payload[0],
         ingredient_unit: state.volumeMeasures[payload[1]],
         ingredient_grams: Math.round(state.volumeMeasures[payload[1]].ratioToCups * payload[2].ingredient_grams * payload[0].value),
-        ingredient_ounces: state.volumeMeasures[payload[1]].ratioToCups * payload[2].ingredient_ounces * payload[0].value
+        ingredient_ounces: state.volumeMeasures[payload[1]].ratioToCups * payload[2].ingredient_ounces * payload[0].value,
+        ingredient_id: payload[2].id
       })
     }
   case REPLACE_INGREDIENT:
@@ -31,10 +33,13 @@ export default function recipeReducer(state = initialRecipesState, action) {
         ingredient_volume: payload[0],
         ingredient_unit: state.volumeMeasures[payload[1]],
         ingredient_grams: Math.round(state.volumeMeasures[payload[1]].ratioToCups * payload[2].ingredient_grams * payload[0].value),
-        ingredient_ounces: state.volumeMeasures[payload[1]].ratioToCups * payload[2].ingredient_ounces * payload[0].value
+        ingredient_ounces: state.volumeMeasures[payload[1]].ratioToCups * payload[2].ingredient_ounces * payload[0].value,
+        ingredient_id: payload[2].id
        })
       .concat(state.recipeIngredients.slice(ingredientIndex + 1))
     }
+  case SAVE_RECIPE:
+    return { ...state, savedRecipes: state.savedRecipes.concat(payload) }
   case REMOVE_INGREDIENT:
     if (state.recipeIngredients.length === 1) {
       return { ...state, recipeIngredients: [] }
