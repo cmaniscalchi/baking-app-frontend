@@ -3,6 +3,7 @@ import withAuth from '../hocs/withAuth'
 import IngredientModal from '../components/IngredientModal'
 import IngredientSelector from '../components/IngredientSelector'
 import RecipeIngredientList from '../components/RecipeIngredientList'
+import ConversionOptions from '../components/ConversionOptions'
 
 class RecipeConverter extends Component {
 
@@ -12,6 +13,7 @@ class RecipeConverter extends Component {
         <IngredientModal />
         <IngredientSelector />
         <RecipeIngredientList />
+        <ConversionOptions />
       </Fragment>
     )
   }
