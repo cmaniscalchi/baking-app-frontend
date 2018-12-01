@@ -1,4 +1,4 @@
-import { ADD_INGREDIENT, REMOVE_INGREDIENT, REPLACE_INGREDIENT, SET_UNIT, SAVE_RECIPE } from '../types'
+import { ADD_INGREDIENT, REMOVE_INGREDIENT, REPLACE_INGREDIENT, SET_UNIT, SAVE_RECIPE, SET_RECIPES } from '../types'
 
 export const addIngredientToRecipe = (volumeObj, unit, ingredient) => ({ type: ADD_INGREDIENT, payload: [volumeObj, unit, ingredient] })
 
@@ -41,5 +41,19 @@ export const saveRecipe = (conversionUnit, id, recipeIngredients) => {
     fetch(`${BASE_URL}${urlSuffix}`, postConfig)
     .then(res => res.json())
     .then(recipe => dispatch({ type: SAVE_RECIPE, payload: recipe }))
+  }
+}
+
+export const fetchRecipes = () => {
+  return dispatch => {
+    let urlSuffix = `recipes`
+    let getConfig = {
+      method: "GET",
+      headers: HEADERS
+    }
+
+    fetch(`${BASE_URL}${urlSuffix}`, getConfig)
+    .then(res => res.json())
+    .then(recipes => dispatch({ type: SET_RECIPES, payload: recipes }))
   }
 }

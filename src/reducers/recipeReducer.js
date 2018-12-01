@@ -1,4 +1,4 @@
-import { ADD_INGREDIENT, REPLACE_INGREDIENT, REMOVE_INGREDIENT, SET_UNIT, SAVE_RECIPE } from '../types'
+import { ADD_INGREDIENT, REPLACE_INGREDIENT, REMOVE_INGREDIENT, SET_UNIT, SAVE_RECIPE, SET_RECIPES } from '../types'
 import { volumeMeasures } from '../volumeMeasures.js'
 
 const initialRecipesState = {
@@ -10,7 +10,7 @@ const initialRecipesState = {
 }
 
 export default function recipeReducer(state = initialRecipesState, action) {
-  console.log("recipeReducer:", state, action)
+  // console.log("recipeReducer:", state, action)
   let { payload } = action
   switch (action.type) {
   case ADD_INGREDIENT:
@@ -38,6 +38,8 @@ export default function recipeReducer(state = initialRecipesState, action) {
        })
       .concat(state.recipeIngredients.slice(ingredientIndex + 1))
     }
+  case SET_RECIPES:
+    return { ...state, savedRecipes: payload }
   case SAVE_RECIPE:
     return { ...state, savedRecipes: state.savedRecipes.concat(payload) }
   case REMOVE_INGREDIENT:
