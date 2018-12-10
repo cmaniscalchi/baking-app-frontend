@@ -13,4 +13,4 @@ The front end for this project was bootstrapped with [Create React App](https://
 - [React Router](https://reacttraining.com/react-router/)
 - [Semantic UI React](https://react.semantic-ui.com/)
 
-The backend repo can be found [here](https://github.com/cmaniscalchi/ex-libris-backend).
+The back end repo can be found [here](https://github.com/cmaniscalchi/ex-libris-backend).

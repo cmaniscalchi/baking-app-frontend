@@ -15,7 +15,6 @@ class SavedRecipeIngredientList extends Component {
 
   render() {
     console.log("SavedRecipeIngredientList:", this.props.savedRecipes)
-
     if (this.props.savedRecipes.length > 0) {
       return "SavedRecipeIngredientList"
     } else {
